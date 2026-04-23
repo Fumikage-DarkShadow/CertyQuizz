@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --fg: 15 23 42;
+    --muted: 100 116 139;
+    --card: 248 250 252;
+    --border: 226 232 240;
+    --primary: 99 102 241;
+    --primary-fg: 255 255 255;
+    --success: 22 163 74;
+    --danger: 220 38 38;
+  }
+
+  .dark {
+    --bg: 15 23 42;
+    --fg: 241 245 249;
+    --muted: 148 163 184;
+    --card: 30 41 59;
+    --border: 51 65 85;
+    --primary: 129 140 248;
+    --primary-fg: 15 23 42;
+    --success: 34 197 94;
+    --danger: 248 113 113;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-[rgb(var(--bg))] text-[rgb(var(--fg))] antialiased;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  ::selection {
+    background: rgb(var(--primary) / 0.25);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-[rgb(var(--card))] border border-[rgb(var(--border))] p-5 shadow-sm;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[rgb(var(--bg))] focus:ring-[rgb(var(--primary))];
+  }
+  .btn-primary { @apply btn bg-[rgb(var(--primary))] text-[rgb(var(--primary-fg))] hover:opacity-90; }
+  .btn-ghost { @apply btn hover:bg-[rgb(var(--card))]; }
+  .btn-outline { @apply btn border border-[rgb(var(--border))] hover:bg-[rgb(var(--card))]; }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium border border-[rgb(var(--border))] bg-[rgb(var(--card))];
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-[rgb(var(--border))] bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))];
+  }
+
+  .prose-sm p { @apply mb-3 leading-relaxed; }
+  .prose-sm strong { @apply font-semibold; }
+  .prose-sm ul { @apply list-disc pl-5 mb-3; }
+  .prose-sm li { @apply mb-1; }
+}
+
+@layer utilities {
+  .text-muted { color: rgb(var(--muted)); }
+  .bg-card { background-color: rgb(var(--card)); }
+  .border-default { border-color: rgb(var(--border)); }
+}

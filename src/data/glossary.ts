@@ -1,0 +1,196 @@
+import type { GlossaryEntry } from '@/types'
+
+/**
+ * Base de définitions CertyQuiz.
+ * Chaque entrée : terme, alias éventuels, définition claire, certifs concernées.
+ */
+export const GLOSSARY: GlossaryEntry[] = [
+  // ================== Fondamentaux ==================
+  { term: 'CIA', aka: ['Triad', 'DIC'], definition: 'Confidentiality, Integrity, Availability. Les trois propriétés fondamentales protégées en sécurité de l\'information.' },
+  { term: 'AAA', definition: 'Authentication, Authorization, Accounting. Triptyque du contrôle d\'accès et de la traçabilité.' },
+  { term: 'Defense in depth', aka: ['Défense en profondeur'], definition: 'Empilement volontaire de plusieurs contrôles indépendants (réseau, identité, endpoint, applicatif) pour qu\'une faille ne suffise jamais seule.' },
+  { term: 'Least privilege', aka: ['Moindre privilège'], definition: 'Donner à chaque identité le strict minimum de droits nécessaires à sa tâche.' },
+  { term: 'Need to know', definition: 'Variante data de least privilege : n\'accéder qu\'aux informations strictement utiles à la mission.' },
+  { term: 'Separation of duties', aka: ['Séparation des tâches'], definition: 'Une action sensible exige deux personnes différentes pour être réalisée (ex. demande + approbation).' },
+  { term: 'Non répudiation', aka: ['Non repudiation'], definition: 'Propriété garantissant qu\'un auteur ne peut nier une action. Obtenue via signatures numériques.' },
+
+  // ================== Identité / Accès ==================
+  { term: 'IAM', aka: ['Identity Access Management'], definition: 'Gestion des identités et des habilitations sur l\'ensemble des systèmes.' },
+  { term: 'PAM', aka: ['Privileged Access Management'], definition: 'Plateforme qui protège, trace et limite les comptes à privilèges (coffre, proxy RDP/SSH, enregistrement).' },
+  { term: 'PIM', aka: ['Privileged Identity Management'], definition: 'Service Entra ID qui active les rôles admin en juste à temps, avec approbation et durée limitée.' },
+  { term: 'JIT', aka: ['Just In Time'], definition: 'Accès activé uniquement pendant une fenêtre courte, juste pour la tâche, puis révoqué.' },
+  { term: 'SSO', aka: ['Single Sign On'], definition: 'Authentification unique : un seul login donne accès à plusieurs applications.' },
+  { term: 'MFA', aka: ['2FA', 'Multi facteur'], definition: 'Authentification à plusieurs facteurs distincts (savoir, posséder, être).' },
+  { term: 'FIDO2', aka: ['WebAuthn', 'Passkey'], definition: 'Standard d\'authentification forte par clé cryptographique liée au matériel, résistant au phishing.' },
+  { term: 'Passwordless', definition: 'Authentification sans mot de passe (passkey, Windows Hello, certificat, FIDO2).' },
+  { term: 'RBAC', definition: 'Role Based Access Control : les droits découlent du rôle attribué.' },
+  { term: 'ABAC', definition: 'Attribute Based Access Control : les droits dépendent d\'attributs contextuels (département, heure, device).' },
+  { term: 'MAC', definition: 'Mandatory Access Control : étiquettes de classification imposées par le système (modèle militaire).' },
+  { term: 'DAC', definition: 'Discretionary Access Control : le propriétaire d\'une ressource décide qui y accède.' },
+  { term: 'Conditional Access', aka: ['Accès conditionnel'], definition: 'Moteur Entra ID qui applique des règles (MFA, compliant device, localisation) selon le risque et le contexte.' },
+  { term: 'Identity Protection', aka: ['Entra ID Protection'], definition: 'Service Entra qui calcule un risque utilisateur et de session (impossible travel, leaked creds) exploitable par Conditional Access.' },
+  { term: 'Break glass', definition: 'Compte d\'urgence hors MFA/CA, verrouillé physiquement, utilisé uniquement si tous les autres accès tombent.' },
+
+  // ================== Cryptographie ==================
+  { term: 'PKI', aka: ['Public Key Infrastructure'], definition: 'Ensemble d\'AC, d\'AE, de CRL et d\'OCSP qui gère le cycle de vie des certificats.' },
+  { term: 'TLS', aka: ['mTLS', 'HTTPS'], definition: 'Couche cryptographique qui chiffre et authentifie un canal réseau. mTLS ajoute l\'authentification du client.' },
+  { term: 'AES', definition: 'Chiffrement symétrique rapide, standard NIST. AES GCM fournit confidentialité et intégrité.' },
+  { term: 'RSA', definition: 'Chiffrement asymétrique basé sur la factorisation. Utilisé pour échange de clé et signature.' },
+  { term: 'ECC', aka: ['ECDSA', 'ECDH'], definition: 'Cryptographie sur courbes elliptiques. Clés plus courtes que RSA à sécurité équivalente.' },
+  { term: 'Hash', aka: ['SHA 256', 'SHA 2', 'SHA 3'], definition: 'Fonction unidirectionnelle qui empreinte une donnée. Sert l\'intégrité.' },
+  { term: 'HMAC', definition: 'Hash + secret partagé. Fournit intégrité et authentification entre deux parties.' },
+  { term: 'KMS', aka: ['Key Management Service'], definition: 'Service qui héberge et protège des clés cryptographiques (AWS KMS, Azure Key Vault, GCP KMS).' },
+  { term: 'HSM', aka: ['Hardware Security Module'], definition: 'Module matériel certifié FIPS 140 qui isole les clés dans du silicium durci.' },
+  { term: 'KEK / DEK', definition: 'Key Encryption Key chiffre la Data Encryption Key. Couche qui permet la rotation sans rechiffrer les données.' },
+  { term: 'Post quantum', aka: ['PQC'], definition: 'Algorithmes résistants aux ordinateurs quantiques (Kyber, Dilithique). Migration NIST en cours.' },
+  { term: 'Tokenisation', definition: 'Remplace une donnée sensible par un jeton de substitution, réversible uniquement via le vault.' },
+
+  // ================== Menaces & attaques ==================
+  { term: 'Phishing', definition: 'Attaque par email visant à duper la cible pour qu\'elle clique, ouvre ou divulgue.' },
+  { term: 'Spear phishing', definition: 'Phishing ciblé sur une personne précise avec contexte personnalisé.' },
+  { term: 'Whaling', definition: 'Phishing visant un dirigeant ou une personne à haute valeur.' },
+  { term: 'Smishing', definition: 'Phishing par SMS.' },
+  { term: 'Vishing', definition: 'Phishing par appel vocal.' },
+  { term: 'Pharming', definition: 'Redirection malicieuse via DNS ou fichier hosts vers un site factice.' },
+  { term: 'Ransomware', definition: 'Malware qui chiffre les données et réclame une rançon. Souvent couplé à de l\'exfiltration (double extorsion).' },
+  { term: 'RAT', aka: ['Remote Access Trojan'], definition: 'Cheval de Troie offrant un contrôle distant persistant sur la machine compromise.' },
+  { term: 'Rootkit', definition: 'Malware qui s\'enfouit dans le système (kernel, bootloader) pour rester invisible.' },
+  { term: 'Worm', aka: ['Ver'], definition: 'Malware qui se propage sans action utilisateur, souvent via une faille réseau.' },
+  { term: 'Logic bomb', definition: 'Code malveillant qui ne s\'active qu\'à une condition donnée (date, événement).' },
+  { term: 'APT', aka: ['Advanced Persistent Threat'], definition: 'Acteur sophistiqué, souvent étatique, qui reste caché longtemps pour un objectif stratégique.' },
+  { term: 'C2', aka: ['Command and Control', 'C&C'], definition: 'Infrastructure utilisée par l\'attaquant pour piloter des machines compromises.' },
+  { term: 'MITM', aka: ['Man in the Middle'], definition: 'Attaquant qui s\'intercale entre deux parties pour observer ou altérer le trafic.' },
+  { term: 'DDoS', aka: ['Denial of Service'], definition: 'Saturation volumétrique ou applicative d\'un service pour le rendre indisponible.' },
+  { term: 'SQLi', definition: 'Injection SQL : contenu utilisateur non échappé qui modifie une requête. Mitigation : requêtes paramétrées.' },
+  { term: 'XSS', definition: 'Cross Site Scripting : injection de JavaScript dans une page rendue au navigateur.' },
+  { term: 'CSRF', definition: 'Cross Site Request Forgery : le navigateur d\'une victime soumet une requête authentifiée à l\'insu de l\'utilisateur.' },
+  { term: 'SSRF', definition: 'Server Side Request Forgery : un serveur web est incité à émettre des requêtes internes pour l\'attaquant.' },
+  { term: 'Pass the hash', definition: 'Réutilisation du hash NTLM d\'un utilisateur sans connaître son mot de passe en clair.' },
+  { term: 'Kerberoasting', definition: 'Demande de tickets Kerberos pour des comptes de service puis crack offline.' },
+  { term: 'Golden Ticket', definition: 'Ticket Kerberos forgé à partir du hash krbtgt. Confère un accès durable et puissant au domaine.' },
+  { term: 'DCSync', definition: 'Technique qui simule un contrôleur de domaine pour répliquer la base NTDS et voler les hashs.' },
+  { term: 'IoC', aka: ['Indicator of Compromise'], definition: 'Artefact observable qui signale une probable compromission (hash, IP, domaine, clé de registre).' },
+
+  // ================== Détection & SOC ==================
+  { term: 'SIEM', definition: 'Security Information and Event Management. Collecte, normalise, corrèle les logs et génère des alertes.' },
+  { term: 'SOAR', definition: 'Security Orchestration, Automation and Response. Automatise les réponses via playbooks.' },
+  { term: 'EDR', definition: 'Endpoint Detection and Response. Capteur sur poste ou serveur pour détecter, investiguer, contenir.' },
+  { term: 'XDR', definition: 'Extended Detection and Response. Fusion des signaux endpoint, identité, email, cloud dans un portail unifié.' },
+  { term: 'MDR', definition: 'Managed Detection and Response. Service externalisé qui opère la détection et la réponse 24x7.' },
+  { term: 'UEBA', definition: 'User and Entity Behavior Analytics. Détection par déviation statistique par rapport au comportement habituel.' },
+  { term: 'IDS / IPS', definition: 'Intrusion Detection / Prevention System. Analyse le trafic réseau pour détecter (IDS) ou bloquer (IPS) des motifs malveillants.' },
+  { term: 'Honeypot', definition: 'Leurre délibérément exposé pour attirer et observer les attaquants.' },
+  { term: 'Kill chain', aka: ['Cyber Kill Chain'], definition: 'Modèle Lockheed Martin en 7 phases, de la reconnaissance à l\'action sur objectifs.' },
+  { term: 'MITRE ATT&CK', definition: 'Matrice publique des tactiques, techniques et procédures utilisées par les attaquants.' },
+  { term: 'MITRE D3FEND', definition: 'Contrepartie défensive d\'ATT&CK : techniques de durcissement, détection, réponse.' },
+  { term: 'STIX / TAXII', definition: 'Formats (STIX) et protocole (TAXII) standard pour échanger du threat intelligence.' },
+  { term: 'Threat intel', aka: ['CTI'], definition: 'Renseignement sur les menaces : adversaires, TTP, IoC, tendances sectorielles.' },
+  { term: 'Playbook', definition: 'Procédure standardisée (automatisée ou non) pour répondre à un type d\'incident précis.' },
+  { term: 'Runbook', definition: 'Procédure opérationnelle détaillée, étape par étape, pour exécuter une action répétable.' },
+
+  // ================== Microsoft Security Stack ==================
+  { term: 'Sentinel', aka: ['Microsoft Sentinel'], definition: 'SIEM et SOAR cloud de Microsoft, bâti sur Log Analytics et interrogé en KQL.' },
+  { term: 'Log Analytics Workspace', aka: ['LAW'], definition: 'Conteneur Azure qui stocke les logs collectés. Base technique de Sentinel.' },
+  { term: 'DCR', aka: ['Data Collection Rule'], definition: 'Règle Azure Monitor qui définit quoi collecter, comment filtrer et où envoyer les données.' },
+  { term: 'KQL', aka: ['Kusto Query Language'], definition: 'Langage de requête utilisé dans Sentinel, Defender XDR, Log Analytics, Azure Data Explorer.' },
+  { term: 'Defender XDR', aka: ['M365 Defender'], definition: 'Portail unifié qui corrèle les alertes MDE, MDI, MDO, MDA en incidents.' },
+  { term: 'MDE', aka: ['Defender for Endpoint'], definition: 'EDR Microsoft sur Windows, macOS, Linux, iOS, Android.' },
+  { term: 'MDI', aka: ['Defender for Identity'], definition: 'Détection d\'attaques AD et AD FS (DCSync, Kerberoasting, Golden Ticket, pass the hash).' },
+  { term: 'MDO', aka: ['Defender for Office 365'], definition: 'Protection email : Safe Links, Safe Attachments, anti phish, ZAP.' },
+  { term: 'MDA', aka: ['Defender for Cloud Apps'], definition: 'CASB Microsoft : découverte d\'applications, session control, DLP cloud.' },
+  { term: 'Defender for Cloud', aka: ['MDC'], definition: 'Plateforme Azure qui combine CSPM (posture) et CWP (runtime) sur Azure, AWS, GCP.' },
+  { term: 'CSPM', definition: 'Cloud Security Posture Management. Évalue la configuration du cloud et le secure score.' },
+  { term: 'CWP', definition: 'Cloud Workload Protection. Protection runtime des VM, SQL, containers, stockage.' },
+  { term: 'Purview', definition: 'Suite Microsoft pour la classification, la DLP, la conformité et la gouvernance des données.' },
+  { term: 'Entra ID', aka: ['Azure AD', 'AAD'], definition: 'Service d\'identité cloud de Microsoft (ex Azure Active Directory).' },
+  { term: 'Safe Links', definition: 'Fonction MDO qui réécrit les URL et vérifie leur réputation au moment du clic.' },
+  { term: 'Safe Attachments', definition: 'Fonction MDO qui détonne les pièces jointes dans un sandbox avant livraison.' },
+  { term: 'ZAP', aka: ['Zero hour Auto Purge'], definition: 'Fonction MDO qui retire a posteriori un email malveillant déjà livré.' },
+  { term: 'Fusion', definition: 'Type de règle analytique Sentinel basée sur du ML multi signal. Corrèle des indicateurs faibles en incidents.' },
+  { term: 'NRT', aka: ['Near Real Time'], definition: 'Règle analytique Sentinel qui tourne environ toutes les minutes sur les données fraîches.' },
+  { term: 'Workbook', definition: 'Tableau de bord interactif Sentinel, alimenté en KQL.' },
+  { term: 'Hunting query', definition: 'Requête KQL sauvegardée pour la chasse proactive de menaces dans Sentinel.' },
+
+  // ================== EBIOS RM ==================
+  { term: 'EBIOS RM', definition: 'Méthode d\'analyse de risques publiée par l\'ANSSI. Structurée en cinq ateliers.' },
+  { term: 'Valeur métier', aka: ['VM'], definition: 'Processus, information ou fonction essentielle qu\'il faut protéger du point de vue du métier.' },
+  { term: 'Bien support', aka: ['BS'], definition: 'Actif technique ou organisationnel qui porte la valeur métier (serveur, appli, base, prestataire).' },
+  { term: 'Événement redouté', aka: ['ER'], definition: 'Conséquence indésirable pour l\'organisation (vol de données, arrêt de service, atteinte à la réputation).' },
+  { term: 'Source de risque', aka: ['SR'], definition: 'Qui peut attaquer : cybercriminel, concurrent, État, interne malveillant, accident.' },
+  { term: 'Objectif visé', aka: ['OV'], definition: 'Ce que la source cherche à obtenir : gain financier, espionnage, sabotage, notoriété.' },
+  { term: 'Couple SR/OV', definition: 'Paire source et objectif évaluée en atelier 2 pour ne retenir que les scénarios pertinents.' },
+  { term: 'Gravité', definition: 'Ampleur intrinsèque des impacts d\'un événement redouté, évaluée avant mesures.' },
+  { term: 'Vraisemblance', definition: 'Probabilité d\'occurrence d\'un scénario opérationnel dans le contexte actuel de l\'organisation.' },
+  { term: 'Écosystème', definition: 'Ensemble des parties prenantes de l\'organisation : clients, fournisseurs, partenaires, prestataires.' },
+  { term: 'Partie prenante critique', aka: ['PP critique'], definition: 'Partie prenante qui cumule un fort niveau de menace et un fort niveau d\'exposition.' },
+  { term: 'PACS', definition: 'Plan d\'Amélioration Continue de la Sécurité : livrable de l\'atelier 5 (mesures, plan, risques résiduels).' },
+  { term: 'Risque résiduel', definition: 'Part du risque qui demeure après application des mesures et qui est formellement acceptée.' },
+  { term: 'Socle de sécurité', definition: 'Ensemble des référentiels applicables (ISO 27001, LPM, NIS2, PSSI) et règles d\'hygiène déjà en place.' },
+  { term: 'Homologation', definition: 'Décision formelle d\'un responsable d\'autoriser la mise en service au vu des risques résiduels.' },
+
+  // ================== Gouvernance / Normes ==================
+  { term: 'ISO 27001', definition: 'Norme de management de la sécurité de l\'information (SMSI). Certifiable.' },
+  { term: 'ISO 27002', definition: 'Référentiel de contrôles de sécurité, complémentaire de la 27001.' },
+  { term: 'ISO 27005', definition: 'Norme de gestion des risques en sécurité de l\'information (version 2022 alignée avec EBIOS RM v1.5).' },
+  { term: 'ISO 31000', definition: 'Norme générique de management du risque, tous secteurs.' },
+  { term: 'NIST CSF', definition: 'Cybersecurity Framework du NIST : fonctions Govern, Identify, Protect, Detect, Respond, Recover.' },
+  { term: 'CIS Controls', definition: '18 contrôles prioritaires du Center for Internet Security, regroupés en trois groupes d\'implémentation.' },
+  { term: 'RGPD', aka: ['GDPR'], definition: 'Règlement européen de protection des données personnelles.' },
+  { term: 'NIS2', definition: 'Directive européenne 2022 sur la cybersécurité des opérateurs essentiels et importants.' },
+  { term: 'DORA', definition: 'Règlement européen sur la résilience opérationnelle numérique du secteur financier.' },
+  { term: 'LPM', definition: 'Loi de Programmation Militaire. Cadre français qui impose des règles renforcées aux OIV.' },
+  { term: 'PCI DSS', definition: 'Standard qui encadre la sécurité des données de cartes de paiement.' },
+  { term: 'SOC 2', definition: 'Rapport d\'audit (type I ou II) sur les contrôles d\'un prestataire SaaS, selon les Trust Services Criteria.' },
+  { term: 'RACI', definition: 'Matrice Responsible, Accountable, Consulted, Informed pour clarifier les rôles.' },
+  { term: 'BIA', aka: ['Business Impact Analysis'], definition: 'Analyse qui évalue l\'impact d\'un arrêt d\'activité et fixe les RTO et RPO.' },
+  { term: 'BCP', aka: ['Plan de continuité'], definition: 'Plan qui permet à l\'organisation de continuer son activité pendant un sinistre.' },
+  { term: 'DRP', aka: ['Plan de reprise'], definition: 'Plan qui restaure les systèmes d\'information après un sinistre.' },
+  { term: 'RTO', definition: 'Recovery Time Objective : durée maximale acceptable d\'indisponibilité.' },
+  { term: 'RPO', definition: 'Recovery Point Objective : perte de données maximale tolérée.' },
+  { term: 'MTTR', definition: 'Mean Time To Repair. Temps moyen de résolution d\'un incident.' },
+  { term: 'MTTD', definition: 'Mean Time To Detect. Temps moyen de détection d\'un incident.' },
+  { term: 'MTBF', definition: 'Mean Time Between Failures. Espérance de temps entre deux pannes.' },
+  { term: 'ALE', definition: 'Annualized Loss Expectancy. ALE = ARO x SLE.' },
+  { term: 'SLE / ARO', definition: 'SLE : perte par incident. ARO : taux annuel d\'occurrence.' },
+
+  // ================== Architectures & réseau ==================
+  { term: 'Zero Trust', definition: 'Modèle never trust, always verify. Pas de confiance implicite, vérification continue.' },
+  { term: 'ZTNA', definition: 'Zero Trust Network Access. Remplace le VPN par un accès applicatif granulaire, identity aware.' },
+  { term: 'SASE', definition: 'Secure Access Service Edge. Convergence cloud du réseau (SD WAN) et de la sécurité (SWG, CASB, ZTNA, FWaaS).' },
+  { term: 'SSE', definition: 'Security Service Edge. Volet sécurité de SASE (SWG, CASB, ZTNA, FWaaS), sans le SD WAN.' },
+  { term: 'SWG', aka: ['Secure Web Gateway'], definition: 'Proxy cloud qui filtre le trafic web des utilisateurs (catégories, malware, DLP).' },
+  { term: 'CASB', definition: 'Cloud Access Security Broker. Contrôle l\'usage des applications SaaS.' },
+  { term: 'FWaaS', definition: 'Firewall As A Service. Pare feu réseau opéré en cloud.' },
+  { term: 'WAF', definition: 'Web Application Firewall. Filtre applicatif HTTP(S) (OWASP Top 10, bots).' },
+  { term: 'DMZ', definition: 'Zone démilitarisée. Sous réseau exposé qui héberge les services accessibles depuis l\'extérieur.' },
+  { term: 'VPN', aka: ['IPsec', 'SSL VPN'], definition: 'Tunnel chiffré qui prolonge le réseau interne sur un lien public.' },
+  { term: 'NAC', definition: 'Network Access Control. Évalue la posture d\'un équipement avant de l\'admettre sur le réseau.' },
+  { term: 'DLP', definition: 'Data Loss Prevention. Détecte et bloque les fuites de données sensibles (endpoint, réseau, SaaS).' },
+  { term: 'Segmentation', aka: ['Microsegmentation'], definition: 'Découpage réseau fin (VLAN, NSG, SDN) qui limite les mouvements latéraux.' },
+
+  // ================== Email / Anti phishing ==================
+  { term: 'SPF', definition: 'Sender Policy Framework. Liste les IP autorisées à émettre pour un domaine.' },
+  { term: 'DKIM', definition: 'DomainKeys Identified Mail. Signature cryptographique des emails.' },
+  { term: 'DMARC', definition: 'Politique qui combine SPF et DKIM et dicte le sort des messages non alignés.' },
+
+  // ================== Développement / DevSecOps ==================
+  { term: 'DevSecOps', definition: 'Intégration de la sécurité dans le pipeline DevOps, en continu.' },
+  { term: 'Shift left', definition: 'Déplacer les contrôles de sécurité le plus tôt possible dans le cycle de développement.' },
+  { term: 'IaC', aka: ['Infrastructure as Code'], definition: 'Infrastructure décrite dans du code (Terraform, Bicep, Pulumi). Contrôlable, scannable, versionnable.' },
+  { term: 'SBOM', aka: ['Software Bill of Materials'], definition: 'Nomenclature des composants logiciels d\'une application.' },
+  { term: 'Secrets management', definition: 'Service qui héberge secrets et jetons (HashiCorp Vault, Azure Key Vault, AWS Secrets Manager).' },
+
+  // ================== Divers utiles en examen ==================
+  { term: 'CVE', definition: 'Common Vulnerabilities and Exposures. Identifiant unique d\'une vulnérabilité publique.' },
+  { term: 'CVSS', definition: 'Score standardisé de criticité d\'une vulnérabilité (0 à 10).' },
+  { term: 'CWE', definition: 'Common Weakness Enumeration. Catégorie de défaut logiciel (ex CWE 89 : SQLi).' },
+  { term: 'OWASP Top 10', definition: 'Dix classes de vulnérabilités web les plus critiques, mise à jour périodiquement.' },
+  { term: 'PBQ', aka: ['Performance Based Question'], definition: 'Question pratique (drag and drop, configuration, association) dans les examens CompTIA.' },
+]
+
+export function findGlossary(term: string) {
+  const t = term.toLowerCase()
+  return GLOSSARY.find(
+    (g) => g.term.toLowerCase() === t || g.aka?.some((a) => a.toLowerCase() === t)
+  )
+}

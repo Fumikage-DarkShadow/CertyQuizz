@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.log
+.env*
+!.env.example
+# TS incremental build cache (pas besoin sur Git)
+*.tsbuildinfo
