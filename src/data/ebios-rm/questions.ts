@@ -16,6 +16,10 @@ const MOOC_REF = {
   label: 'MOOC Club EBIOS',
   url: 'https://lms.club-ebios.org/',
 }
+const PRATIQUE_REF = {
+  label: 'EBIOS RM dans la pratique : questionnaire de diagnostic SI (amnbrains.com)',
+  url: 'https://amnbrains.com/blog',
+}
 
 /**
  * Banque EBIOS RM alignée sur le Guide ANSSI v1.5 et le MOOC Club EBIOS.
@@ -864,5 +868,207 @@ export const EBIOS_RM_QUESTIONS: Question[] = [
     correct: ['a'],
     explanation: 'Deux axes : gravité (impact) et vraisemblance (probabilité).',
     references: [GUIDE_REF], tags: ['vocabulaire', 'matrice risque'],
+  },
+
+  // =========================================================
+  // Diagnostic SI : préparation à l'atelier 1
+  // Couvre les couches fonctionnelle, applicative, réseau,
+  // systèmes, équipements industriels, physique, organisation.
+  // Inspiré du questionnaire de diagnostic EBIOS RM en pratique.
+  // =========================================================
+  {
+    id: 'eb-diag-01', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Pour cartographier une fonction métier avant l\'atelier 1, quelle information est la plus prioritaire à capturer ?',
+    options: [
+      { id: 'a', text: 'Le coût annuel de la licence du logiciel qui la porte', rationale: 'Information financière, sans lien avec l\'analyse de risque EBIOS RM.' },
+      { id: 'b', text: 'Le processus métier dans lequel elle s\'inscrit, ses entrées, sorties et données', rationale: 'Permet de relier la fonction aux valeurs métier et aux biens supports.' },
+      { id: 'c', text: 'La charte graphique de son interface utilisateur', rationale: 'Hors scope d\'un diagnostic SI pour analyse de risque.' },
+      { id: 'd', text: 'Le nombre de clics pour accomplir la tâche', rationale: 'Métrique d\'UX, pas une information structurante pour le cadrage.' },
+    ],
+    correct: ['b'],
+    explanation: 'Capturer **processus, flux, données** pour chaque fonction alimente ensuite les valeurs métier et biens supports.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'fonction'],
+  },
+  {
+    id: 'eb-diag-02', certId: 'ebios-rm', domainId: 'a1', type: 'multi', difficulty: 'medium',
+    prompt: 'Pour chaque donnée manipulée par le SI, quelles informations doivent figurer dans la cartographie ? (DEUX réponses)',
+    options: [
+      { id: 'a', text: 'Les composants applicatifs, systèmes et matériels qui la traitent, la transfèrent ou la stockent', rationale: 'Base pour relier la donnée à ses biens supports techniques.' },
+      { id: 'b', text: 'La liste des utilisateurs autorisés en lecture ou en écriture et par quels moyens d\'accès', rationale: 'Indispensable pour l\'analyse des événements redoutés de type fuite ou altération.' },
+      { id: 'c', text: 'La couleur dominante de la page d\'accueil', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'La saison préférée du propriétaire de la donnée', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Traçabilité technique plus modèle d\'habilitation sont les deux piliers.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'donnée'],
+  },
+  {
+    id: 'eb-diag-03', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'hard',
+    prompt: 'Pour un composant applicatif identifié dans le SI, quel élément est le plus critique à documenter dans la perspective d\'un scénario opérationnel ?',
+    options: [
+      { id: 'a', text: 'Les ports réseau sur lesquels il écoute, leur accessibilité et le modèle d\'authentification des accès', rationale: 'Ces points deviennent des surfaces d\'attaque à raisonner en atelier 4.' },
+      { id: 'b', text: 'La date de sortie initiale du produit', rationale: 'Anecdotique pour l\'analyse de risque.' },
+      { id: 'c', text: 'Le nom du développeur principal', rationale: 'Non structurant.' },
+      { id: 'd', text: 'Le niveau de zoom par défaut de l\'interface', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a'],
+    explanation: 'Ports ouverts plus authentification : pierre angulaire de la surface d\'attaque.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'applicatif'],
+  },
+  {
+    id: 'eb-diag-04', certId: 'ebios-rm', domainId: 'a1', type: 'multi', difficulty: 'medium',
+    prompt: 'Pour chaque communication entre deux composants du SI, quelles caractéristiques sont essentielles ? (DEUX réponses)',
+    options: [
+      { id: 'a', text: 'Source et destination logicielles, machine et interface réseau, port et protocole', rationale: 'Permet de reconstituer les flux et les points d\'interception possibles.' },
+      { id: 'b', text: 'Réseaux et interconnexions traversés, données transportées', rationale: 'Permet d\'identifier les équipements traversés et l\'exposition des données.' },
+      { id: 'c', text: 'Préférences personnelles du destinataire', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Marque du fabricant du câble', rationale: 'Non pertinent au niveau cartographie des flux.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Flux : extrémités plus chemin plus contenu.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'communication'],
+  },
+  {
+    id: 'eb-diag-05', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Dans un SI virtualisé, quelle précision est indispensable à noter pour chaque machine virtuelle ?',
+    options: [
+      { id: 'a', text: 'La machine hôte et la solution de virtualisation utilisée', rationale: 'Indispensable : la compromission de l\'hôte touche toutes les VMs hébergées.' },
+      { id: 'b', text: 'La température de la salle serveur', rationale: 'Information physique, pas cartographie virtualisation.' },
+      { id: 'c', text: 'Le nom commercial du processeur d\'origine', rationale: 'Hors sujet pour la VM.' },
+      { id: 'd', text: 'Le prix d\'achat de l\'hyperviseur', rationale: 'Information financière, pas technique.' },
+    ],
+    correct: ['a'],
+    explanation: 'Une VM dépend de son hôte et de son hyperviseur : à tracer explicitement.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'virtualisation'],
+  },
+  {
+    id: 'eb-diag-06', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'hard',
+    prompt: 'Sur un poste administrable à distance, quels paramètres doivent impérativement figurer dans la cartographie ?',
+    options: [
+      { id: 'a', text: 'Service utilisé (RDP, SSH, WinRM), utilisateurs autorisés et réseaux source permis', rationale: 'Accès distants concentrent le risque : il faut tracer service, ayants droit, origine réseau.' },
+      { id: 'b', text: 'La couleur du fond d\'écran', rationale: 'Hors sujet.' },
+      { id: 'c', text: 'La police système par défaut', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Le numéro de série du dernier écran connecté', rationale: 'Non pertinent pour l\'analyse de risque.' },
+    ],
+    correct: ['a'],
+    explanation: 'Service plus ayants droit plus réseau source : trio obligatoire pour la prise en main à distance.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'administration'],
+  },
+  {
+    id: 'eb-diag-07', certId: 'ebios-rm', domainId: 'a1', type: 'multi', difficulty: 'medium',
+    prompt: 'Pour chaque domaine Windows du périmètre, quelles informations structurent la cartographie ? (DEUX réponses)',
+    options: [
+      { id: 'a', text: 'La liste des contrôleurs de domaine', rationale: 'Ces machines concentrent l\'autorité d\'authentification et sont des biens supports critiques.' },
+      { id: 'b', text: 'Les relations d\'approbation en place avec d\'autres domaines', rationale: 'Un trust mal maîtrisé étend la surface d\'attaque au delà du périmètre nominal.' },
+      { id: 'c', text: 'La photo du RSSI', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Le nom de domaine Internet public de l\'entreprise', rationale: 'Sans rapport direct avec la structure du domaine Active Directory.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Contrôleurs plus relations d\'approbation : cœur du modèle de confiance Windows.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'Active Directory'],
+  },
+  {
+    id: 'eb-diag-08', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Quel élément relatif aux interconnexions entre deux sous‑réseaux est indispensable à la cartographie ?',
+    options: [
+      { id: 'a', text: 'Les règles de filtrage appliquées à l\'interconnexion', rationale: 'Elles déterminent ce qui passe et ce qui est bloqué entre les zones.' },
+      { id: 'b', text: 'La longueur en mètres du câble de liaison', rationale: 'Anecdotique pour l\'analyse de risque.' },
+      { id: 'c', text: 'La date anniversaire du switch', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'La version du firmware du téléphone IP le plus proche', rationale: 'Sans rapport avec la règle de filtrage.' },
+    ],
+    correct: ['a'],
+    explanation: 'Une interconnexion sans règles documentées égale une interconnexion inanalysable.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'réseau'],
+  },
+  {
+    id: 'eb-diag-09', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Pour chaque point d\'accès Wi‑Fi de l\'organisation, quelle information est la plus pertinente à recenser ?',
+    options: [
+      { id: 'a', text: 'La zone de couverture radio effective et le mécanisme d\'authentification des clients', rationale: 'La couverture physique détermine qui peut tenter de s\'associer ; l\'authentification détermine qui peut s\'associer avec succès.' },
+      { id: 'b', text: 'Le nombre de stagiaires passés par l\'entreprise cette année', rationale: 'Hors sujet.' },
+      { id: 'c', text: 'La couleur du voyant LED du point d\'accès', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Le fournisseur d\'électricité du bâtiment', rationale: 'Pas au niveau de granularité du point d\'accès.' },
+    ],
+    correct: ['a'],
+    explanation: 'Couverture radio plus authentification : deux axes clefs pour qualifier l\'exposition Wi‑Fi.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'Wi-Fi'],
+  },
+  {
+    id: 'eb-diag-10', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'hard',
+    prompt: 'Dans un environnement industriel (OT), pour chaque capteur ou actionneur, quel lien doit être documenté ?',
+    options: [
+      { id: 'a', text: 'L\'unité de calcul (automate, calculateur) à laquelle il est relié et le type de liaison', rationale: 'La chaîne capteur vers automate vers supervision est la colonne vertébrale d\'un SI industriel ; sans ce lien, l\'analyse de risque OT est impossible.' },
+      { id: 'b', text: 'La couleur de la gaine du câble', rationale: 'Anecdotique.' },
+      { id: 'c', text: 'La marque de peinture du boîtier', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Le poids du capteur', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a'],
+    explanation: 'Capteur ou actionneur se cartographie via son automate associé et son type de liaison.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'OT'],
+  },
+  {
+    id: 'eb-diag-11', certId: 'ebios-rm', domainId: 'a1', type: 'multi', difficulty: 'hard',
+    prompt: 'Pour une unité de calcul industrielle qui communique avec un système de contrôle commande, quelles informations sont indispensables ? (DEUX réponses)',
+    options: [
+      { id: 'a', text: 'Le protocole utilisé et le rôle client ou serveur vis à vis du système de contrôle', rationale: 'Protocole plus rôle déterminent les chemins d\'attaque possibles.' },
+      { id: 'b', text: 'Le mécanisme d\'authentification de la communication', rationale: 'Beaucoup de protocoles OT sont authentifiés faiblement ou pas du tout : information critique.' },
+      { id: 'c', text: 'La couleur du témoin d\'activité', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'La date d\'expiration de la garantie', rationale: 'Information gestion, pas risque.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Protocole et rôle plus authentification : trio qui caractérise une communication OT.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'OT'],
+  },
+  {
+    id: 'eb-diag-12', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'hard',
+    prompt: 'Pour tout composant administré, une bonne pratique consiste à documenter s\'il est administré via une machine de rebond. Pourquoi ?',
+    options: [
+      { id: 'a', text: 'Parce qu\'une machine de rebond concentre les accès administrateur et devient un point critique à sécuriser et surveiller', rationale: 'Un bastion compromis ouvre l\'ensemble des systèmes administrés ; il doit être explicite dans la cartographie.' },
+      { id: 'b', text: 'Parce que cela change la couleur du câble réseau', rationale: 'Contresens.' },
+      { id: 'c', text: 'Parce que cela réduit automatiquement la consommation électrique', rationale: 'Sans rapport.' },
+      { id: 'd', text: 'Parce que cela remplace l\'authentification', rationale: 'Le bastion ne supprime pas le besoin d\'authentification.' },
+    ],
+    correct: ['a'],
+    explanation: 'La machine de rebond concentre les accès privilégiés : elle doit être identifiée et fortement protégée.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'bastion'],
+  },
+  {
+    id: 'eb-diag-13', certId: 'ebios-rm', domainId: 'a1', type: 'multi', difficulty: 'medium',
+    prompt: 'Pour chaque local hébergeant des équipements physiques, quelles informations structurent la cartographie ? (DEUX réponses)',
+    options: [
+      { id: 'a', text: 'La nature des cloisons (toit, sol, murs, portes, fenêtres) et les locaux adjacents', rationale: 'Indispensable pour apprécier les chemins d\'intrusion physique.' },
+      { id: 'b', text: 'Les modalités de contrôle d\'accès au local', rationale: 'Détermine qui peut physiquement atteindre les équipements.' },
+      { id: 'c', text: 'La couleur de peinture des murs', rationale: 'Anecdotique.' },
+      { id: 'd', text: 'La marque du distributeur automatique à proximité', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Cloisons plus contrôle d\'accès : deux dimensions complémentaires de la sécurité physique.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'sécurité physique'],
+  },
+  {
+    id: 'eb-diag-14', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Pour un composant externalisé (SaaS, Cloud public), quelle information clef relève du périmètre d\'analyse EBIOS RM ?',
+    options: [
+      { id: 'a', text: 'Le fournisseur associé et les périmètres de responsabilité qui lui incombent', rationale: 'Un composant externalisé implique un partage de responsabilité à formaliser, qui deviendra une partie prenante en atelier 3.' },
+      { id: 'b', text: 'Le slogan publicitaire du fournisseur', rationale: 'Hors sujet.' },
+      { id: 'c', text: 'L\'emplacement du siège social du fournisseur', rationale: 'Pertinent sous angle juridique mais pas structurant pour la cartographie technique.' },
+      { id: 'd', text: 'Le nombre d\'employés du fournisseur', rationale: 'Information commerciale, pas risque.' },
+    ],
+    correct: ['a'],
+    explanation: 'Fournisseur plus périmètre de responsabilité : à lier ensuite à l\'écosystème en atelier 3.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'externalisation'],
+  },
+  {
+    id: 'eb-diag-15', certId: 'ebios-rm', domainId: 'a1', type: 'single', difficulty: 'medium',
+    prompt: 'Dans le recensement des parties prenantes du SI, quelle distinction est la plus pertinente pour EBIOS RM ?',
+    options: [
+      { id: 'a', text: 'Interne ou externe, avec périmètre de responsabilités et privilèges d\'accès logique et physique associés', rationale: 'Cette segmentation prépare directement les ateliers 2 et 3 (source de risque interne, partie prenante écosystème).' },
+      { id: 'b', text: 'Volubile ou discret en réunion', rationale: 'Hors sujet.' },
+      { id: 'c', text: 'Préfère le café ou le thé', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Âge moyen du service', rationale: 'Information RH, pas risque.' },
+    ],
+    correct: ['a'],
+    explanation: 'Interne vs externe plus responsabilités plus privilèges : matrice de base pour l\'atelier 3.',
+    references: [GUIDE_REF, PRATIQUE_REF], tags: ['diagnostic', 'parties prenantes'],
   },
 ]
