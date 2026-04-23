@@ -11,3 +11,5 @@ dist-ssr
 !.env.example
 # TS incremental build cache (pas besoin sur Git)
 *.tsbuildinfo
+
+.vercel

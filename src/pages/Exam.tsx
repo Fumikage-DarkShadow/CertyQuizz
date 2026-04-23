@@ -18,12 +18,14 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 const EXAM_CONFIG: Record<string, { questions: number; minutes: number; passPct: number }> = {
-  'security-plus': { questions: 50, minutes: 70, passPct: 83 },
-  'ebios-rm': { questions: 40, minutes: 75, passPct: 70 },
-  'sc-200': { questions: 45, minutes: 80, passPct: 70 },
-  'iso-42001': { questions: 20, minutes: 45, passPct: 70 },
-  'cissp': { questions: 25, minutes: 60, passPct: 70 },
-  'cisa': { questions: 20, minutes: 50, passPct: 70 },
+  // Volumes alignés sur les examens réels. Si la banque est plus petite que le volume
+  // cible, le moteur capse automatiquement au nombre de questions disponibles.
+  'security-plus': { questions: 90, minutes: 90, passPct: 83 },   // CompTIA SY0 701 : 90 Q / 90 min / 750 / 900
+  'ebios-rm': { questions: 40, minutes: 75, passPct: 70 },        // Variable selon école, typique 40 Q
+  'sc-200': { questions: 50, minutes: 100, passPct: 70 },         // Microsoft SC 200 : env. 40 à 60 Q / 100 min
+  'iso-42001': { questions: 12, minutes: 180, passPct: 70 },      // PECB : 12 questions ouvertes / 3h (open book)
+  'cissp': { questions: 125, minutes: 240, passPct: 70 },         // ISC2 CISSP CAT : 125 à 175 Q / 4h / 700 / 1000
+  'cisa': { questions: 150, minutes: 240, passPct: 56 },          // ISACA CISA : 150 Q / 4h / 450 / 800 (56 %)
 }
 
 export default function Exam() {
