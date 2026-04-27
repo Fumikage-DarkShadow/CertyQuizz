@@ -6,6 +6,10 @@ const EBIOS_REF = { label: 'EBIOS Risk Manager (ANSSI v1.5)', url: 'https://cybe
 const SECNUM_REF = { label: 'SecNumCloud v3.2 (ANSSI)', url: 'https://cyber.gouv.fr/secnumcloud-pour-les-fournisseurs-de-services-cloud' }
 const RNCP_REF = { label: 'RNCP39781 BC01 : Gouvernance des infrastructures', url: 'https://www.francecompetences.fr/' }
 const HDS_REF = { label: 'Hébergeur de Données de Santé (HDS)', url: 'https://esante.gouv.fr/produits-services/hds' }
+const RGPD_REF = { label: 'RGPD, texte consolidé (CNIL)', url: 'https://www.cnil.fr/fr/reglement-europeen-protection-donnees' }
+const DORA_REF = { label: 'DORA, Règlement (UE) 2022/2554', url: 'https://eur-lex.europa.eu/eli/reg/2022/2554/oj' }
+const NIS2_REF = { label: 'NIS2, Directive (UE) 2022/2555', url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj' }
+const ISO19011_REF = { label: 'ISO 19011:2018, lignes directrices audit', url: 'https://www.iso.org/standard/70017.html' }
 
 /**
  * Banque EFREI Gouvernance, Audit et Risques.
@@ -629,4 +633,571 @@ export const EFREI_GOUVERNANCE_QUESTIONS: Question[] = [
     correct: ['a'],
     explanation: 'Échelle EC01 : 0 / 2 / 3 / **5 = professionnel**.',
     references: [RNCP_REF], tags: ['notation EC01'] },
+
+  // =========================================================
+  // G1 (extension) : Three Lines, COBIT, ITIL, ISO 19011 (8 QCM)
+  // =========================================================
+
+  { id: 'efr-g1-13', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'hard',
+    prompt: 'Dans le modèle Three Lines of Defense imposé en banque par l\'ACPR, qui occupe la 3ème ligne ?',
+    options: [
+      { id: 'a', text: 'Audit interne et commissaires aux comptes (assurance indépendante)', rationale: 'Définition : la 3ème ligne fournit une assurance indépendante au COMEX et au conseil.' },
+      { id: 'b', text: 'Conformité (CCO) et RSSI', rationale: 'Faux : ce sont la 2ème ligne (surveillance et défi).' },
+      { id: 'c', text: 'Opérationnels métiers et CRO', rationale: 'Faux : 1ère ligne (propriétaire du risque).' },
+      { id: 'd', text: 'L\'ACPR elle-même', rationale: 'L\'ACPR est l\'autorité externe, pas une ligne interne du modèle.' },
+    ],
+    correct: ['a'],
+    explanation: '**3LoD** : 1ère opérationnels+CRO, 2ème conformité+RSSI, **3ème audit interne+CAC**.',
+    references: [{ label: 'ACPR : modèle Three Lines of Defense', url: 'https://acpr.banque-france.fr/' }],
+    tags: ['Three Lines of Defense', 'gouvernance bancaire'] },
+
+  { id: 'efr-g1-14', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'medium',
+    prompt: 'Quelle est la différence fondamentale entre un audit et un contrôle interne ?',
+    options: [
+      { id: 'a', text: 'Le contrôle est continu et opérationnel ; l\'audit est ponctuel, indépendant et formalisé', rationale: 'Distinction classique testée en QCM : continuité vs ponctualité, opérationnel vs indépendant.' },
+      { id: 'b', text: 'Le contrôle est externe et l\'audit est interne', rationale: 'Faux : les deux peuvent être internes ou externes selon le contexte.' },
+      { id: 'c', text: 'L\'audit produit des KPI et le contrôle produit un rapport', rationale: 'Inversé et confus : l\'audit produit un rapport formalisé.' },
+      { id: 'd', text: 'Il n\'y a pas de différence, ce sont des synonymes', rationale: 'Faux, ce sont deux activités distinctes.' },
+    ],
+    correct: ['a'],
+    explanation: '**Contrôle = continu et opérationnel**, **audit = ponctuel, indépendant, formalisé**.',
+    references: [ISO19011_REF],
+    tags: ['audit vs contrôle'] },
+
+  { id: 'efr-g1-15', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'medium',
+    prompt: 'Quel référentiel de l\'ISACA fournit un cadre de gouvernance des SI orienté objectifs de contrôle ?',
+    options: [
+      { id: 'a', text: 'COBIT 2019', rationale: 'Control Objectives for Information and related Technology, édité par l\'ISACA, version 2019.' },
+      { id: 'b', text: 'ITIL v4', rationale: 'Faux : ITIL est centré sur la gestion des services IT, pas la gouvernance objectifs de contrôle.' },
+      { id: 'c', text: 'ISO 19011', rationale: 'Faux : ISO 19011 concerne l\'audit des systèmes de management.' },
+      { id: 'd', text: 'CMMI', rationale: 'Faux : CMMI est un modèle de maturité de processus.' },
+    ],
+    correct: ['a'],
+    explanation: '**COBIT 2019** = ISACA, gouvernance et management du SI par objectifs de contrôle.',
+    references: [{ label: 'ISACA COBIT 2019', url: 'https://www.isaca.org/resources/cobit' }],
+    tags: ['COBIT', 'ISACA'] },
+
+  { id: 'efr-g1-16', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'medium',
+    prompt: 'ITIL v4 est principalement utilisé pour :',
+    options: [
+      { id: 'a', text: 'Codifier la gestion des services IT (incidents, problèmes, changements, configurations)', rationale: 'ITIL v4 = bonnes pratiques de Service Management : ITSM, value streams, 4 dimensions.' },
+      { id: 'b', text: 'Auditer un SMSI selon ISO 27001', rationale: 'Faux : pour cela on utilise ISO 19011 et l\'annexe ISO 27007.' },
+      { id: 'c', text: 'Mesurer la maturité des processus métiers', rationale: 'Confusion avec CMMI.' },
+      { id: 'd', text: 'Notifier les incidents NIS2', rationale: 'Hors champ ITIL.' },
+    ],
+    correct: ['a'],
+    explanation: '**ITIL v4** = Service Management. COBIT couvre la gouvernance, ITIL couvre les services.',
+    references: [{ label: 'AXELOS ITIL', url: 'https://www.axelos.com/certifications/itil-service-management' }],
+    tags: ['ITIL', 'service management'] },
+
+  { id: 'efr-g1-17', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'hard',
+    prompt: 'Quel texte donne la définition normative d\'un audit (« processus systématique, indépendant et documenté pour obtenir des preuves d\'audit ») ?',
+    options: [
+      { id: 'a', text: 'ISO 19011:2018', rationale: 'ISO 19011 : lignes directrices pour l\'audit des systèmes de management. Source de la définition apprise.' },
+      { id: 'b', text: 'ISO 27001:2022', rationale: 'Faux : 27001 cadre le SMSI, pas la méthode d\'audit.' },
+      { id: 'c', text: 'COBIT 2019', rationale: 'COBIT propose un cadre de gouvernance, pas la définition normative d\'un audit.' },
+      { id: 'd', text: 'RGPD article 28', rationale: 'Hors sujet : 28 RGPD encadre la sous-traitance.' },
+    ],
+    correct: ['a'],
+    explanation: 'La définition d\'un audit se trouve dans **ISO 19011:2018**.',
+    references: [ISO19011_REF],
+    tags: ['ISO 19011', 'définition audit'] },
+
+  { id: 'efr-g1-18', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'medium',
+    prompt: 'Un audit de certification ISO 27001 est conduit par :',
+    options: [
+      { id: 'a', text: 'Un organisme de certification accrédité par le COFRAC, avec cycle triennal et surveillance annuelle', rationale: 'Modèle officiel ISO : audit initial puis 2 audits de surveillance, recertification à 3 ans.' },
+      { id: 'b', text: 'L\'audit interne de l\'entreprise', rationale: 'Faux : un audit de certification doit être indépendant et accrédité.' },
+      { id: 'c', text: 'L\'ANSSI directement', rationale: 'L\'ANSSI qualifie (PASSI, SecNumCloud), elle ne certifie pas ISO 27001.' },
+      { id: 'd', text: 'Le commissaire aux comptes', rationale: 'Le CAC fait de l\'audit légal financier, pas de la certification ISO.' },
+    ],
+    correct: ['a'],
+    explanation: 'ISO 27001 : organisme **accrédité COFRAC**, **triennal** + 2 surveillances.',
+    references: [{ label: 'COFRAC accréditations', url: 'https://www.cofrac.fr/' }],
+    tags: ['certification ISO 27001', 'COFRAC'] },
+
+  { id: 'efr-g1-19', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'hard',
+    prompt: 'Le référentiel CMMI évalue la maturité des processus selon combien de niveaux ?',
+    options: [
+      { id: 'a', text: '5 (Initial, Reproductible, Défini, Maîtrisé, Optimisé)', rationale: 'CMMI : échelle 1 à 5, où 5 = optimisation continue.' },
+      { id: 'b', text: '4 (Partial, Risk Informed, Repeatable, Adaptive)', rationale: 'Ce sont les 4 niveaux du **NIST CSF**, pas de CMMI.' },
+      { id: 'c', text: '6', rationale: 'Confusion avec ISO 33020 (6 niveaux d\'évaluation des processus).' },
+      { id: 'd', text: '3', rationale: 'Aucun référentiel reconnu n\'utilise 3 niveaux.' },
+    ],
+    correct: ['a'],
+    explanation: '**CMMI = 5 niveaux**. NIST CSF = 4. ISO 33020 = 6.',
+    references: [{ label: 'CMMI Institute', url: 'https://cmmiinstitute.com/' }],
+    tags: ['CMMI', 'maturité'] },
+
+  { id: 'efr-g1-20', certId: 'efrei-gouvernance', domainId: 'g1', type: 'single', difficulty: 'medium',
+    prompt: 'Parmi les étapes d\'un audit, à quel moment se situent les entretiens, l\'examen documentaire et les tests techniques ?',
+    options: [
+      { id: 'a', text: 'Étape 3 : Collecte', rationale: 'Cadrage (1) → Pré-audit (2) → **Collecte (3)** → Analyse (4) → Restitution (5) → Plan d\'action (6).' },
+      { id: 'b', text: 'Étape 1 : Cadrage', rationale: 'Cadrage = définir objectif, périmètre, méthodologie, interlocuteurs.' },
+      { id: 'c', text: 'Étape 5 : Restitution', rationale: 'Restitution = remise du rapport et présentation des écarts.' },
+      { id: 'd', text: 'Étape 6 : Plan d\'action', rationale: 'Le plan d\'action suit la restitution.' },
+    ],
+    correct: ['a'],
+    explanation: 'Cycle audit en 6 étapes ; collecte = **étape 3**.',
+    references: [ISO19011_REF],
+    tags: ['étapes audit'] },
+
+  // =========================================================
+  // G2 (extension) : échelles V/G, vraisemblance vs gravité (5 QCM)
+  // =========================================================
+
+  { id: 'efr-g2-16', certId: 'efrei-gouvernance', domainId: 'g2', type: 'single', difficulty: 'hard',
+    prompt: 'Une mesure de sécurité technique (par exemple un EDR sur les postes) agit en EBIOS RM principalement sur :',
+    options: [
+      { id: 'a', text: 'La vraisemblance du scénario uniquement', rationale: 'Mémo fondamental EBIOS RM : les mesures réduisent la **vraisemblance**, pas la gravité.' },
+      { id: 'b', text: 'La gravité de l\'événement redouté', rationale: 'Faux : la gravité est intrinsèque à l\'enjeu métier, on ne la réduit pas par une mesure technique.' },
+      { id: 'c', text: 'À la fois la gravité et la vraisemblance, à parts égales', rationale: 'Erreur classique en QCM. Seule la vraisemblance baisse.' },
+      { id: 'd', text: 'Aucun des deux, l\'EDR n\'a pas d\'effet sur la cotation', rationale: 'Faux : un EDR diminue la probabilité de réussite d\'un scénario malware.' },
+    ],
+    correct: ['a'],
+    explanation: 'Les mesures EBIOS RM réduisent la **vraisemblance**, jamais la gravité.',
+    references: [EBIOS_REF],
+    tags: ['vraisemblance vs gravité', 'piège classique'] },
+
+  { id: 'efr-g2-17', certId: 'efrei-gouvernance', domainId: 'g2', type: 'single', difficulty: 'medium',
+    prompt: 'L\'échelle de vraisemblance EBIOS RM utilisée dans le cours comporte combien de niveaux ?',
+    options: [
+      { id: 'a', text: '5 niveaux : V0 Invraisemblable à V4 Quasi-certain', rationale: 'Échelle officielle V0 V1 V2 V3 V4 (5 niveaux).' },
+      { id: 'b', text: '4 niveaux : V1 à V4', rationale: 'Faux : V0 existe pour le risque résiduel maîtrisé.' },
+      { id: 'c', text: '3 niveaux : Faible, Moyen, Fort', rationale: 'Échelle simplifiée non utilisée par EBIOS RM.' },
+      { id: 'd', text: '6 niveaux pour aligner sur ISO 33020', rationale: 'Aucune référence à ISO 33020 dans EBIOS RM.' },
+    ],
+    correct: ['a'],
+    explanation: 'Vraisemblance EBIOS RM = **5 niveaux V0 à V4**.',
+    references: [EBIOS_REF],
+    tags: ['vraisemblance V0 V4'] },
+
+  { id: 'efr-g2-18', certId: 'efrei-gouvernance', domainId: 'g2', type: 'single', difficulty: 'medium',
+    prompt: 'L\'échelle de gravité EBIOS RM utilisée dans le cours comporte combien de niveaux ?',
+    options: [
+      { id: 'a', text: '4 niveaux : G1 Mineur à G4 Catastrophique', rationale: 'Échelle officielle G1 G2 G3 G4.' },
+      { id: 'b', text: '5 niveaux : G0 à G4', rationale: 'Confusion avec la vraisemblance V0 à V4.' },
+      { id: 'c', text: '3 niveaux : Mineur, Moyen, Catastrophique', rationale: 'Échelle réduite non utilisée.' },
+      { id: 'd', text: '10 niveaux pour aligner sur CVSS', rationale: 'Hors sujet : CVSS sert aux vulnérabilités, pas à EBIOS.' },
+    ],
+    correct: ['a'],
+    explanation: 'Gravité EBIOS RM = **4 niveaux G1 à G4** (Mineur, Significatif, Grave, Catastrophique).',
+    references: [EBIOS_REF],
+    tags: ['gravité G1 G4'] },
+
+  { id: 'efr-g2-19', certId: 'efrei-gouvernance', domainId: 'g2', type: 'multi', difficulty: 'hard',
+    prompt: 'Sélectionnez les deux affirmations VRAIES sur les scénarios EBIOS RM (Atelier 3 vs Atelier 4) :',
+    options: [
+      { id: 'a', text: 'Le scénario stratégique présente qui attaque, pourquoi et par où, sans détail technique', rationale: 'Atelier 3 = vue de haut niveau, parties prenantes critiques, chemins d\'attaque.' },
+      { id: 'b', text: 'Le scénario opérationnel détaille les modes opératoires sur les biens supports concrets', rationale: 'Atelier 4 = mode opératoire technique, exploitation, déplacement latéral.' },
+      { id: 'c', text: 'Le scénario stratégique est rédigé après le scénario opérationnel', rationale: 'Faux : 3 vient avant 4.' },
+      { id: 'd', text: 'Les scénarios opérationnels sont produits avant l\'atelier 1', rationale: 'Faux : tout cadrage est dans l\'atelier 1.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Stratégique = **A3 (qui/pourquoi/par où)**, Opérationnel = **A4 (comment techniquement)**.',
+    references: [EBIOS_REF],
+    tags: ['scénario stratégique vs opérationnel'] },
+
+  { id: 'efr-g2-20', certId: 'efrei-gouvernance', domainId: 'g2', type: 'single', difficulty: 'hard',
+    prompt: 'Comment la gravité d\'un risque G4 catastrophique peut-elle être réellement réduite (et pas seulement la vraisemblance) ?',
+    options: [
+      { id: 'a', text: 'Par une transformation métier : suppression de l\'activité, externalisation, ou transfert via assurance cyber', rationale: 'Seule façon de baisser la gravité : changer l\'enjeu métier lui-même.' },
+      { id: 'b', text: 'En déployant un EDR sur tous les postes', rationale: 'Faux : l\'EDR baisse la vraisemblance, pas la gravité.' },
+      { id: 'c', text: 'En durcissant les mots de passe', rationale: 'Vraisemblance, pas gravité.' },
+      { id: 'd', text: 'En faisant un audit annuel', rationale: 'L\'audit ne change pas la gravité d\'un événement redouté.' },
+    ],
+    correct: ['a'],
+    explanation: 'Gravité = intrinsèque à l\'enjeu. On la réduit par **transformation métier** ou **transfert** (assurance).',
+    references: [EBIOS_REF],
+    tags: ['gravité', 'transfert risque'] },
+
+  // =========================================================
+  // G3 (extension) : contenu PACS, sponsor, documents (6 QCM)
+  // =========================================================
+
+  { id: 'efr-g3-09', certId: 'efrei-gouvernance', domainId: 'g3', type: 'multi', difficulty: 'medium',
+    prompt: 'Sélectionnez les rubriques OBLIGATOIRES d\'un PACS conforme au cours EFREI :',
+    options: [
+      { id: 'a', text: 'Liste exhaustive des mesures de sécurité (objectif minimal 20 mesures)', rationale: 'Rubrique « Mesures » du PACS.' },
+      { id: 'b', text: 'Quick wins identifiés, priorisation P1/P2/P3, planification court/moyen/long terme', rationale: 'Trois rubriques explicitement listées dans le format type Excel du PACS.' },
+      { id: 'c', text: 'Les CV de tous les collaborateurs', rationale: 'Aucune rubrique RH individuelle dans un PACS.' },
+      { id: 'd', text: 'Le plan marketing de l\'entreprise', rationale: 'Hors sujet : un PACS est un document sécurité.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'PACS = **mesures + quick wins + priorisation + budget + planning + KPI + statut + responsable**.',
+    references: [EBIOS_REF],
+    tags: ['contenu PACS'] },
+
+  { id: 'efr-g3-10', certId: 'efrei-gouvernance', domainId: 'g3', type: 'single', difficulty: 'hard',
+    prompt: 'Le sponsor obligatoire d\'un PACS est :',
+    options: [
+      { id: 'a', text: 'Un sponsor exécutif (DSI, Directeur des Risques, ou DG) qui arbitre les conflits de priorité et garantit le budget', rationale: 'Règle d\'or du PACS : sans sponsor exécutif, les arbitrages budgétaires bloquent.' },
+      { id: 'b', text: 'Un opérationnel sécurité junior', rationale: 'Faux : insuffisant pour arbitrer.' },
+      { id: 'c', text: 'Le délégué à la protection des données', rationale: 'Le DPO a un rôle limité au RGPD, pas l\'ensemble du PACS.' },
+      { id: 'd', text: 'Aucun, le PACS est auto-porté', rationale: 'Faux : un sponsor exécutif est explicitement requis.' },
+    ],
+    correct: ['a'],
+    explanation: '**Sponsor exécutif obligatoire** (DSI / CRO / DG).',
+    references: [EBIOS_REF],
+    tags: ['sponsor PACS'] },
+
+  { id: 'efr-g3-11', certId: 'efrei-gouvernance', domainId: 'g3', type: 'multi', difficulty: 'medium',
+    prompt: 'Quels documents sont systématiquement associés à un PACS complet ?',
+    options: [
+      { id: 'a', text: 'PSSI, politique de mots de passe, politique d\'habilitation', rationale: 'Trois documents structurants imposés par tout PACS sérieux.' },
+      { id: 'b', text: 'Procédures de sauvegarde, gestion des incidents, registre RGPD art. 30 et registre DORA art. 28', rationale: 'Documents de continuité et de conformité prestataires/RGPD.' },
+      { id: 'c', text: 'Plan marketing du trimestre', rationale: 'Hors sujet.' },
+      { id: 'd', text: 'Bulletins de paie', rationale: 'Aucun lien avec un PACS.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: '**PSSI + politiques + procédures + registres + PCA/PRA** = tous associés au PACS.',
+    references: [EBIOS_REF],
+    tags: ['documents PACS'] },
+
+  { id: 'efr-g3-12', certId: 'efrei-gouvernance', domainId: 'g3', type: 'single', difficulty: 'medium',
+    prompt: 'Que désigne la règle 3 2 1 1 0 dans une procédure de sauvegarde ?',
+    options: [
+      { id: 'a', text: '3 copies, 2 supports différents, 1 hors site, 1 hors ligne (immutable), 0 erreur après vérification', rationale: 'Règle 3-2-1-1-0 = évolution moderne intégrant copie immutable + zéro erreur de restauration.' },
+      { id: 'b', text: '3 jours par mois, 2 employés, 1 prestataire', rationale: 'Aberrant.' },
+      { id: 'c', text: '3 PCA, 2 PRA, 1 RTO, 1 RPO, 0 SLA', rationale: 'Mélange incohérent d\'acronymes.' },
+      { id: 'd', text: '3 audits annuels, 2 internes, 1 externe', rationale: 'Aucun lien avec une règle de sauvegarde.' },
+    ],
+    correct: ['a'],
+    explanation: '**3-2-1-1-0** : 3 copies, 2 supports, 1 hors site, **1 immutable**, **0 erreur** restauration.',
+    references: [{ label: 'Veeam : règle 3-2-1-1-0', url: 'https://www.veeam.com/' }],
+    tags: ['sauvegarde 3-2-1-1-0'] },
+
+  { id: 'efr-g3-13', certId: 'efrei-gouvernance', domainId: 'g3', type: 'single', difficulty: 'medium',
+    prompt: 'Dans le PACS, la priorisation P1 désigne :',
+    options: [
+      { id: 'a', text: 'Mesures prioritaires (impact élevé, faisabilité bonne, court terme)', rationale: 'Définition métier du P1 : à exécuter en premier dans le plan d\'action.' },
+      { id: 'b', text: 'Mesures à étudier ultérieurement', rationale: 'Plutôt P3 ou statut « À étudier ».' },
+      { id: 'c', text: 'Mesures abandonnées', rationale: 'Faux : un PACS ne « priorise » pas une mesure abandonnée.' },
+      { id: 'd', text: 'Mesures en doublon', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a'],
+    explanation: '**P1 = priorité maximale**, à lancer en premier (court terme < 6 mois).',
+    references: [EBIOS_REF],
+    tags: ['priorisation PACS'] },
+
+  { id: 'efr-g3-14', certId: 'efrei-gouvernance', domainId: 'g3', type: 'single', difficulty: 'easy',
+    prompt: 'Le format type d\'un PACS livré en entreprise est généralement :',
+    options: [
+      { id: 'a', text: 'Un tableur (Excel) listant mesures, priorités, budgets et statuts', rationale: 'Format standard du livrable d\'atelier 5.' },
+      { id: 'b', text: 'Un document Word de 200 pages narratives', rationale: 'Trop dense pour un suivi opérationnel.' },
+      { id: 'c', text: 'Une présentation PowerPoint sans tableau', rationale: 'Insuffisant pour piloter les mesures.' },
+      { id: 'd', text: 'Un schéma réseau Visio', rationale: 'Hors sujet : un schéma n\'est pas un PACS.' },
+    ],
+    correct: ['a'],
+    explanation: 'PACS = **tableur Excel** (mesures, priorités, statuts, KPI).',
+    references: [EBIOS_REF],
+    tags: ['format PACS'] },
+
+  // =========================================================
+  // G4 (extension) : SLA détaillé, GTI/GTR, BCR/DPA/MTO (8 QCM)
+  // =========================================================
+
+  { id: 'efr-g4-09', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'hard',
+    prompt: 'Selon le cours EFREI, un SLA conforme se structure en combien de parties et lesquelles ?',
+    options: [
+      { id: 'a', text: '4 parties : RGPD, Gestion incidents et continuité, KPI, Contractuelle', rationale: 'Structure officielle du cours : 1 RGPD, 2 incidents+continuité, 3 KPI, 4 contractuelle.' },
+      { id: 'b', text: '3 parties : Technique, Financière, Juridique', rationale: 'Découpage trop générique, ne correspond pas au cours.' },
+      { id: 'c', text: '5 parties : RGPD, NIS2, DORA, ISO, contractuelle', rationale: 'Mélange réglementations et structure SLA, faux.' },
+      { id: 'd', text: '2 parties : technique et juridique', rationale: 'Insuffisant : oublie KPI et continuité.' },
+    ],
+    correct: ['a'],
+    explanation: 'SLA = **4 parties : RGPD + Incidents/Continuité + KPI + Contractuelle**.',
+    references: [{ label: 'Cours EFREI Gouvernance, structure SLA', url: 'https://www.efrei.fr/' }],
+    tags: ['structure SLA'] },
+
+  { id: 'efr-g4-10', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'hard',
+    prompt: 'Quelle est la différence précise entre GTI et GTR ?',
+    options: [
+      { id: 'a', text: 'GTI = délai pour COMMENCER à traiter (à partir de la notification) ; GTR = durée totale jusqu\'à la remise en service (équivalent contractuel du RTO)', rationale: 'Distinction critique : GTI = démarrage intervention, GTR = fin de l\'incident.' },
+      { id: 'b', text: 'GTI = durée totale, GTR = délai pour commencer', rationale: 'Inversé.' },
+      { id: 'c', text: 'GTI et GTR sont synonymes', rationale: 'Faux : ils mesurent deux temps différents et figurent tous les deux dans un SLA.' },
+      { id: 'd', text: 'GTI concerne la disponibilité, GTR concerne la confidentialité', rationale: 'Aucun lien avec les critères DICT.' },
+    ],
+    correct: ['a'],
+    explanation: '**GTI = démarrage** (à partir de la notification), **GTR = rétablissement complet** (≈ RTO contractuel).',
+    references: [{ label: 'CNIL et SLA, bonnes pratiques', url: 'https://www.cnil.fr/' }],
+    tags: ['GTI vs GTR', 'piège classique'] },
+
+  { id: 'efr-g4-11', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'medium',
+    prompt: 'À quoi correspond un DPA dans le contexte d\'un contrat de prestation IT ?',
+    options: [
+      { id: 'a', text: 'Data Processing Agreement, contrat de sous-traitance imposé par l\'article 28 du RGPD', rationale: 'DPA = clauses obligatoires : objet, durée, MTO, sous-traitants ultérieurs, droit d\'audit.' },
+      { id: 'b', text: 'Data Protection Authority', rationale: 'L\'autorité c\'est la CNIL (DPA est un acronyme courant aux US, mais ici contexte RGPD).' },
+      { id: 'c', text: 'Disaster Plan Agreement', rationale: 'N\'existe pas comme acronyme officiel.' },
+      { id: 'd', text: 'Database Performance Audit', rationale: 'Aberrant.' },
+    ],
+    correct: ['a'],
+    explanation: '**DPA** = **Data Processing Agreement** (RGPD art. 28).',
+    references: [RGPD_REF],
+    tags: ['DPA', 'sous-traitance RGPD'] },
+
+  { id: 'efr-g4-12', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'medium',
+    prompt: 'Que désigne BCR dans une clause de transfert international de données ?',
+    options: [
+      { id: 'a', text: 'Binding Corporate Rules, règles d\'entreprise contraignantes pour les transferts intra-groupe hors UE', rationale: 'BCR = mécanisme RGPD validé par la CNIL/EDPB pour les groupes multinationaux.' },
+      { id: 'b', text: 'Backup Continuous Replication', rationale: 'Aberrant.' },
+      { id: 'c', text: 'Business Continuity Recovery', rationale: 'Confusion avec PCA/PRA.' },
+      { id: 'd', text: 'Bank Compliance Rules', rationale: 'N\'existe pas comme acronyme RGPD.' },
+    ],
+    correct: ['a'],
+    explanation: '**BCR** = **Binding Corporate Rules** (transferts intra-groupe hors UE).',
+    references: [RGPD_REF],
+    tags: ['BCR', 'transferts internationaux'] },
+
+  { id: 'efr-g4-13', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'easy',
+    prompt: 'À quelle fréquence un SLA doit-il être révisé selon le cours ?',
+    options: [
+      { id: 'a', text: 'Annuelle, en atelier conjoint client/prestataire', rationale: 'Règle officielle : révision annuelle pour suivre l\'évolution des besoins, de la techno et de la réglementation.' },
+      { id: 'b', text: 'Tous les 5 ans uniquement', rationale: 'Trop espacé, la réglementation change plus vite.' },
+      { id: 'c', text: 'Jamais, un SLA est figé', rationale: 'Faux : le besoin commercial évolue.' },
+      { id: 'd', text: 'À chaque incident', rationale: 'Trop fréquent, ce serait un avenant et pas une révision globale.' },
+    ],
+    correct: ['a'],
+    explanation: 'Révision SLA = **annuelle**, atelier conjoint.',
+    references: [{ label: 'Cours EFREI, révision SLA', url: 'https://www.efrei.fr/' }],
+    tags: ['révision SLA'] },
+
+  { id: 'efr-g4-14', certId: 'efrei-gouvernance', domainId: 'g4', type: 'multi', difficulty: 'hard',
+    prompt: 'Quelles certifications sont pertinentes à exiger d\'un prestataire avant signature d\'un SLA pour un service cloud sensible ?',
+    options: [
+      { id: 'a', text: 'ISO 27001 et SOC 2 Type II', rationale: 'Standards internationaux SMSI et contrôles opérationnels.' },
+      { id: 'b', text: 'SecNumCloud (si données souveraines) ou HDS (si données de santé)', rationale: 'Qualifications ANSSI/ASIP-Santé spécifiques aux contextes sensibles.' },
+      { id: 'c', text: 'PCI-DSS uniquement, même si pas de paiements en jeu', rationale: 'PCI-DSS est uniquement pertinent si CB.' },
+      { id: 'd', text: 'Aucune, la confiance suffit', rationale: 'Pratique non conforme à RGPD/NIS2/DORA.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Certifications attendues : **ISO 27001, SOC 2, HDS, SecNumCloud** selon le contexte.',
+    references: [SECNUM_REF, HDS_REF],
+    tags: ['certifications prestataires'] },
+
+  { id: 'efr-g4-15', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'medium',
+    prompt: 'Selon NIS2, le non-respect d\'obligations par un OSE peut entraîner une sanction administrative pouvant aller jusqu\'à :',
+    options: [
+      { id: 'a', text: '10 M€ ou 2 % du CA mondial annuel (le plus élevé)', rationale: 'Plafond NIS2 explicite dans le texte.' },
+      { id: 'b', text: '20 M€ ou 4 % du CA (RGPD)', rationale: 'Confusion avec RGPD. NIS2 a son propre plafond.' },
+      { id: 'c', text: '1 % du CA (DORA)', rationale: 'Plafond DORA, pas NIS2.' },
+      { id: 'd', text: 'Aucune sanction', rationale: 'Faux : NIS2 prévoit explicitement des sanctions administratives.' },
+    ],
+    correct: ['a'],
+    explanation: 'Sanctions **NIS2 = 10 M€ ou 2 % CA**.',
+    references: [NIS2_REF],
+    tags: ['sanctions NIS2'] },
+
+  { id: 'efr-g4-16', certId: 'efrei-gouvernance', domainId: 'g4', type: 'single', difficulty: 'hard',
+    prompt: 'Quelle norme ISO est dédiée à la sécurité des relations fournisseurs (chaîne d\'approvisionnement) ?',
+    options: [
+      { id: 'a', text: 'ISO/IEC 27036', rationale: 'Norme spécifique : Information security for supplier relationships, en complément de l\'annexe A.5.19 à A.5.23 d\'ISO 27001.' },
+      { id: 'b', text: 'ISO 27001', rationale: 'Référentiel SMSI général : ISO 27036 le complète sur le volet fournisseurs.' },
+      { id: 'c', text: 'ISO 27005', rationale: 'Concerne la gestion des risques.' },
+      { id: 'd', text: 'ISO 19011', rationale: 'Concerne l\'audit, pas les relations fournisseurs.' },
+    ],
+    correct: ['a'],
+    explanation: '**ISO/IEC 27036** = sécurité des relations fournisseurs (supply chain).',
+    references: [{ label: 'ISO 27036', url: 'https://www.iso.org/standard/59648.html' }],
+    tags: ['ISO 27036', 'supply chain'] },
+
+  // =========================================================
+  // G6 (NOUVEAU) : Réglementations RGPD / DORA / NIS2 (15 QCM)
+  // =========================================================
+
+  { id: 'efr-g6-01', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'Le RGPD s\'applique en France depuis :',
+    options: [
+      { id: 'a', text: 'Le 25 mai 2018', rationale: 'Date d\'entrée en application du Règlement (UE) 2016/679.' },
+      { id: 'b', text: 'Le 1er janvier 2020', rationale: 'Faux, antérieur de presque 2 ans.' },
+      { id: 'c', text: 'Le 17 janvier 2025', rationale: 'Date d\'application de DORA, pas du RGPD.' },
+      { id: 'd', text: 'Le 18 octobre 2024', rationale: 'Date de transposition NIS2, pas du RGPD.' },
+    ],
+    correct: ['a'],
+    explanation: 'RGPD applicable depuis le **25 mai 2018**.',
+    references: [RGPD_REF],
+    tags: ['RGPD', 'date application'] },
+
+  { id: 'efr-g6-02', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'Quel article du RGPD définit les Données à Caractère Personnel ?',
+    options: [
+      { id: 'a', text: 'Article 4-1', rationale: 'Définition légale : « toute information se rapportant à une personne physique identifiée ou identifiable ».' },
+      { id: 'b', text: 'Article 9', rationale: 'Concerne les **données sensibles**, pas la définition générale.' },
+      { id: 'c', text: 'Article 32', rationale: 'Concerne la sécurité du traitement (MTO).' },
+      { id: 'd', text: 'Article 28', rationale: 'Concerne la sous-traitance.' },
+    ],
+    correct: ['a'],
+    explanation: 'DCP définies à l\'**article 4-1 RGPD**.',
+    references: [RGPD_REF],
+    tags: ['RGPD art. 4', 'DCP'] },
+
+  { id: 'efr-g6-03', certId: 'efrei-gouvernance', domainId: 'g6', type: 'multi', difficulty: 'hard',
+    prompt: 'Parmi ces données, lesquelles sont des données SENSIBLES au sens de l\'article 9 RGPD ?',
+    options: [
+      { id: 'a', text: 'Données biométriques traitées aux fins d\'identifier une personne', rationale: 'Explicitement listées à l\'art. 9, traitement interdit par principe.' },
+      { id: 'b', text: 'Données de santé', rationale: 'Listées à l\'art. 9 : santé, génétique, vie sexuelle.' },
+      { id: 'c', text: 'Numéro IBAN d\'un client', rationale: 'C\'est une DCP courante, pas une donnée sensible.' },
+      { id: 'd', text: 'Adresse IP d\'un visiteur', rationale: 'DCP au sens de la jurisprudence Breyer (CJUE 2016), pas sensible.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'Art. 9 = **biométrie d\'identification, santé, origine, opinions, religion, syndicat, génétique, vie sexuelle**.',
+    references: [RGPD_REF],
+    tags: ['RGPD art. 9', 'données sensibles'] },
+
+  { id: 'efr-g6-04', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'Le délai maximal de notification d\'une violation de données à la CNIL est :',
+    options: [
+      { id: 'a', text: '72 heures à compter de la prise de connaissance (RGPD art. 33)', rationale: 'Délai officiel et fréquemment testé.' },
+      { id: 'b', text: '24 heures', rationale: 'Confusion avec NIS2 (24h alerte précoce).' },
+      { id: 'c', text: '4 heures', rationale: 'Délai DORA pour incident TIC majeur, pas RGPD.' },
+      { id: 'd', text: '30 jours', rationale: 'Trop long, non conforme.' },
+    ],
+    correct: ['a'],
+    explanation: 'Notification CNIL = **72 heures (RGPD art. 33)**.',
+    references: [RGPD_REF],
+    tags: ['RGPD art. 33', 'notification 72h'] },
+
+  { id: 'efr-g6-05', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'hard',
+    prompt: 'Quelle est la différence entre Responsable de traitement et Sous-traitant au sens du RGPD ?',
+    options: [
+      { id: 'a', text: 'Le Responsable détermine les finalités et les moyens (art. 4-7) ; le Sous-traitant traite au nom du Responsable (art. 4-8)', rationale: 'Distinction fondamentale. Le DPA (art. 28) encadre la relation.' },
+      { id: 'b', text: 'Le Responsable est la CNIL', rationale: 'Faux : la CNIL est l\'autorité de contrôle, pas un responsable de traitement.' },
+      { id: 'c', text: 'Les deux notions sont synonymes', rationale: 'Faux et grave : régimes juridiques distincts.' },
+      { id: 'd', text: 'Le Sous-traitant est toujours le DPO', rationale: 'Aucun rapport avec le DPO.' },
+    ],
+    correct: ['a'],
+    explanation: '**Responsable** (art. 4-7) **détermine** ; **Sous-traitant** (art. 4-8) **exécute au nom**.',
+    references: [RGPD_REF],
+    tags: ['RGPD art. 4', 'responsable vs sous-traitant'] },
+
+  { id: 'efr-g6-06', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'La sanction maximale prévue par le RGPD pour un manquement grave est :',
+    options: [
+      { id: 'a', text: '20 M€ ou 4 % du chiffre d\'affaires mondial annuel (le plus élevé)', rationale: 'Plafond du « tier 2 » des sanctions RGPD (manquements aux principes ou aux droits).' },
+      { id: 'b', text: '10 M€ ou 2 % du CA (NIS2)', rationale: 'Plafond NIS2.' },
+      { id: 'c', text: '1 % du CA (DORA)', rationale: 'Plafond DORA.' },
+      { id: 'd', text: '500 € forfaitaires', rationale: 'Aberrant.' },
+    ],
+    correct: ['a'],
+    explanation: 'Sanction max RGPD = **20 M€ ou 4 % CA**.',
+    references: [RGPD_REF],
+    tags: ['sanctions RGPD'] },
+
+  { id: 'efr-g6-07', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'Le Règlement DORA (UE 2022/2554) est applicable depuis :',
+    options: [
+      { id: 'a', text: 'Le 17 janvier 2025', rationale: 'Date butoir explicite du règlement.' },
+      { id: 'b', text: 'Le 25 mai 2018', rationale: 'Date du RGPD.' },
+      { id: 'c', text: 'Le 18 octobre 2024', rationale: 'Date NIS2.' },
+      { id: 'd', text: 'Le 1er janvier 2027', rationale: 'Date inventée, hors texte.' },
+    ],
+    correct: ['a'],
+    explanation: 'DORA applicable depuis le **17 janvier 2025**.',
+    references: [DORA_REF],
+    tags: ['DORA', 'date application'] },
+
+  { id: 'efr-g6-08', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'hard',
+    prompt: 'Selon DORA, un incident TIC majeur doit faire l\'objet d\'une alerte initiale auprès de l\'ACPR dans un délai de :',
+    options: [
+      { id: 'a', text: '4 heures (alerte initiale), puis rapport intermédiaire à 72h et rapport final à 1 mois', rationale: 'Article 19 DORA : trois jalons de notification.' },
+      { id: 'b', text: '72 heures (RGPD art. 33)', rationale: 'Confusion avec RGPD : ce n\'est pas le même délai.' },
+      { id: 'c', text: '24 heures (NIS2)', rationale: 'Confusion avec NIS2.' },
+      { id: 'd', text: '30 jours', rationale: 'Beaucoup trop long.' },
+    ],
+    correct: ['a'],
+    explanation: 'DORA art. 19 : **4h alerte + 72h rapport intermédiaire + 1 mois rapport final**.',
+    references: [DORA_REF],
+    tags: ['DORA art. 19', 'notification incident'] },
+
+  { id: 'efr-g6-09', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'hard',
+    prompt: 'Le TLPT prévu par DORA (article 26) désigne :',
+    options: [
+      { id: 'a', text: 'Threat-Led Penetration Testing : test d\'intrusion fondé sur le renseignement, exigé tous les 3 ans pour les entités significatives', rationale: 'TLPT = méthodologie inspirée de TIBER-EU, supervisée par l\'autorité.' },
+      { id: 'b', text: 'Test Logiciel de Production Temporaire', rationale: 'Aberrant.' },
+      { id: 'c', text: 'Threat List Protection Tool', rationale: 'N\'existe pas.' },
+      { id: 'd', text: 'Trade Lifecycle Performance Test', rationale: 'Hors sujet.' },
+    ],
+    correct: ['a'],
+    explanation: 'TLPT = **Threat-Led Penetration Testing**, DORA art. 26, **tous les 3 ans**.',
+    references: [DORA_REF],
+    tags: ['DORA art. 26', 'TLPT'] },
+
+  { id: 'efr-g6-10', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'Que désigne FCT dans le contexte DORA ?',
+    options: [
+      { id: 'a', text: 'Fournisseur Critique Tiers : prestataire TIC soumis à une surveillance directe par les autorités européennes (art. 31 à 44)', rationale: 'Statut introduit par DORA pour les hyperscalers, processeurs critiques, etc.' },
+      { id: 'b', text: 'Fonds Commun de Trésorerie', rationale: 'Hors sujet financier classique.' },
+      { id: 'c', text: 'Formation Continue Technique', rationale: 'Aucun lien avec DORA.' },
+      { id: 'd', text: 'Filtre Centralisé de Traçabilité', rationale: 'N\'existe pas.' },
+    ],
+    correct: ['a'],
+    explanation: 'FCT = **Fournisseur Critique Tiers** (DORA art. 31 à 44).',
+    references: [DORA_REF],
+    tags: ['DORA FCT'] },
+
+  { id: 'efr-g6-11', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'La directive NIS2 (UE 2022/2555) couvre combien de secteurs critiques ?',
+    options: [
+      { id: 'a', text: '18 secteurs (essentiels et importants)', rationale: 'NIS2 élargit le champ par rapport à NIS1 (qui n\'en couvrait que 7).' },
+      { id: 'b', text: '7 secteurs', rationale: 'Périmètre NIS1, pas NIS2.' },
+      { id: 'c', text: '3 secteurs', rationale: 'Trop restrictif.' },
+      { id: 'd', text: 'Aucun, NIS2 est sectoriel uniquement banque', rationale: 'Confusion avec DORA.' },
+    ],
+    correct: ['a'],
+    explanation: 'NIS2 = **18 secteurs critiques** (essentiels + importants).',
+    references: [NIS2_REF],
+    tags: ['NIS2 secteurs'] },
+
+  { id: 'efr-g6-12', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'hard',
+    prompt: 'L\'autorité française désignée pour la mise en œuvre de NIS2 est :',
+    options: [
+      { id: 'a', text: 'L\'ANSSI', rationale: 'Autorité compétente, point de contact unique et CSIRT pour la France.' },
+      { id: 'b', text: 'La CNIL', rationale: 'CNIL = autorité RGPD, pas NIS2.' },
+      { id: 'c', text: 'L\'ACPR', rationale: 'ACPR = autorité bancaire, compétente pour DORA, pas NIS2.' },
+      { id: 'd', text: 'L\'AMF', rationale: 'AMF = marchés financiers, hors champ NIS2.' },
+    ],
+    correct: ['a'],
+    explanation: 'NIS2 en France = **ANSSI**.',
+    references: [NIS2_REF],
+    tags: ['NIS2 ANSSI'] },
+
+  { id: 'efr-g6-13', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'hard',
+    prompt: 'Sous NIS2, le délai d\'alerte précoce d\'un incident significatif est :',
+    options: [
+      { id: 'a', text: '24 heures pour l\'alerte initiale, puis 72 heures pour le rapport', rationale: 'Article 23 NIS2 : alerte précoce 24h, rapport 72h, rapport final 1 mois.' },
+      { id: 'b', text: '72 heures (RGPD)', rationale: 'Confusion avec RGPD art. 33.' },
+      { id: 'c', text: '4 heures (DORA)', rationale: 'Confusion avec DORA art. 19.' },
+      { id: 'd', text: 'Aucun délai imposé', rationale: 'Faux.' },
+    ],
+    correct: ['a'],
+    explanation: 'NIS2 = **24h alerte précoce + 72h rapport** + 1 mois rapport final.',
+    references: [NIS2_REF],
+    tags: ['NIS2 délais'] },
+
+  { id: 'efr-g6-14', certId: 'efrei-gouvernance', domainId: 'g6', type: 'multi', difficulty: 'hard',
+    prompt: 'Vous comparez RGPD, DORA et NIS2. Sélectionnez les deux affirmations VRAIES :',
+    options: [
+      { id: 'a', text: 'RGPD protège les DCP, NIS2 vise la résilience cyber des secteurs critiques, DORA cible la résilience opérationnelle TIC du secteur financier', rationale: 'Triptyque officiel : champs distincts mais complémentaires.' },
+      { id: 'b', text: 'Les sanctions max sont différentes : 20M€ ou 4% (RGPD), 10M€ ou 2% (NIS2), 1% (DORA)', rationale: 'Plafonds officiels documentés.' },
+      { id: 'c', text: 'RGPD remplace DORA et NIS2', rationale: 'Faux : ce sont des textes complémentaires, pas substituables.' },
+      { id: 'd', text: 'DORA n\'impose aucun registre des prestataires', rationale: 'Faux : DORA art. 28 impose un registre.' },
+    ],
+    correct: ['a', 'b'],
+    explanation: 'RGPD = DCP, NIS2 = secteurs critiques, DORA = finance ; sanctions distinctes.',
+    references: [RGPD_REF, DORA_REF, NIS2_REF],
+    tags: ['comparaison RGPD/DORA/NIS2'] },
+
+  { id: 'efr-g6-15', certId: 'efrei-gouvernance', domainId: 'g6', type: 'single', difficulty: 'medium',
+    prompt: 'L\'article 30 du RGPD impose la tenue de :',
+    options: [
+      { id: 'a', text: 'Un registre des activités de traitement', rationale: 'Document central exigé pour tout responsable de traitement (sauf petites entités sans risque).' },
+      { id: 'b', text: 'Un registre des prestataires TIC', rationale: 'C\'est l\'art. 28 DORA, pas l\'art. 30 RGPD.' },
+      { id: 'c', text: 'Un journal d\'incidents', rationale: 'Bonne pratique mais pas l\'objet de l\'art. 30.' },
+      { id: 'd', text: 'Un PCA', rationale: 'Hors champ RGPD strict.' },
+    ],
+    correct: ['a'],
+    explanation: 'RGPD art. 30 = **registre des activités de traitement**.',
+    references: [RGPD_REF],
+    tags: ['RGPD art. 30', 'registre traitements'] },
+
 ]
