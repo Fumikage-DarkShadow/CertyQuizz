@@ -26,6 +26,7 @@ const EXAM_CONFIG: Record<string, { questions: number; minutes: number; passPct:
   'iso-42001': { questions: 12, minutes: 180, passPct: 70 },      // PECB : 12 questions ouvertes / 3h (open book)
   'cissp': { questions: 125, minutes: 240, passPct: 70 },         // ISC2 CISSP CAT : 125 à 175 Q / 4h / 700 / 1000
   'cisa': { questions: 150, minutes: 240, passPct: 56 },          // ISACA CISA : 150 Q / 4h / 450 / 800 (56 %)
+  'efrei-gouvernance': { questions: 30, minutes: 60, passPct: 60 }, // EFREI EC01 : QCM 30 Q / 60 min / 60 % (RNCP39781 BC01)
 }
 
 export default function Exam() {

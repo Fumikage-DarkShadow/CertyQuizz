@@ -5,6 +5,7 @@ export type CertId =
   | 'iso-42001'
   | 'cissp'
   | 'cisa'
+  | 'efrei-gouvernance'
 
 export type Difficulty = 'easy' | 'medium' | 'hard'
 

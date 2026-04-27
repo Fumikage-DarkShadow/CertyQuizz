@@ -5,6 +5,7 @@ import { SC_200_QUESTIONS } from './sc-200/questions'
 import { ISO_42001_QUESTIONS } from './iso-42001/questions'
 import { CISSP_QUESTIONS } from './cissp/questions'
 import { CISA_QUESTIONS } from './cisa/questions'
+import { EFREI_GOUVERNANCE_QUESTIONS } from './efrei-gouvernance/questions'
 
 export const QUESTIONS: Question[] = [
   ...SECURITY_PLUS_QUESTIONS,
@@ -13,6 +14,7 @@ export const QUESTIONS: Question[] = [
   ...ISO_42001_QUESTIONS,
   ...CISSP_QUESTIONS,
   ...CISA_QUESTIONS,
+  ...EFREI_GOUVERNANCE_QUESTIONS,
 ]
 
 export function questionsFor(certId: CertId, domainId?: string) {
