@@ -30,6 +30,21 @@ export function QuizCard({
 
   const correctSet = useMemo(() => new Set(question.correct), [question.correct])
 
+  /**
+   * Shuffle stable des options : l'ordre est fixé pour une question donnée
+   * (clé question.id) et différent à chaque montage. Évite le biais "bonne
+   * réponse souvent en A" et empêche la mémorisation par position.
+   */
+  const shuffledOptions = useMemo(() => {
+    const a = question.options.slice()
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[a[i], a[j]] = [a[j], a[i]]
+    }
+    return a
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question.id])
+
   const toggle = (id: string) => {
     if (submitted) return
     if (isMulti) {
@@ -95,9 +110,10 @@ export function QuizCard({
       )}
 
       <div className="mt-5 space-y-2">
-        {question.options.map((o) => {
+        {shuffledOptions.map((o, idx) => {
           const picked = selection.includes(o.id)
           const isCorrect = correctSet.has(o.id)
+          const letter = String.fromCharCode(65 + idx) // A, B, C, D selon la position visuelle
           const showRationale =
             submitted && !hideExplanation && revealAfterAnswer && (picked || isCorrect) && !!o.rationale
 
@@ -136,10 +152,10 @@ export function QuizCard({
                     ) : picked ? (
                       <X className="h-3.5 w-3.5" />
                     ) : (
-                      o.id.toUpperCase()
+                      letter
                     )
                   ) : (
-                    o.id.toUpperCase()
+                    letter
                   )}
                 </span>
                 <span className="text-sm leading-relaxed">
