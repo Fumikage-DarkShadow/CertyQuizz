@@ -130,7 +130,7 @@ export const CERTIFICATIONS: Certification[] = [
     extraResources: [
       {
         label: 'Pack CISSP complet (Drive)',
-        url: 'https://drive.google.com/drive/u/0/folders/1OTCyiNN7Km-ZFN_ciDAHGmEeKhyaXrnC',
+        url: 'https://drive.google.com/drive/folders/1OTCyiNN7Km-ZFN_ciDAHGmEeKhyaXrnC',
         description: 'Dossier partagé : supports, résumés, cartes mentales et annales.',
       },
     ],
@@ -200,7 +200,7 @@ export const CERTIFICATIONS: Certification[] = [
     extraResources: [
       {
         label: 'Pack CISA complet (Drive)',
-        url: 'https://drive.google.com/drive/u/0/folders/1vf5E7Yd09km31ZzcJ2_F0VH0hWRMEi8O',
+        url: 'https://drive.google.com/drive/folders/1vf5E7Yd09km31ZzcJ2_F0VH0hWRMEi8O',
         description: 'Dossier partagé : QAE ISACA, résumés par domaine et questions d\'entraînement.',
       },
     ],
