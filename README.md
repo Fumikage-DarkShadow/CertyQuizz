@@ -4,7 +4,7 @@
 
 # CertyQuiz
 
-**Préparation gamifiée aux certifications cybersécurité — Duolingo + Quizlet pour la cyber.**
+**Préparation gamifiée aux certifications cybersécurité — Quizlet pour la cyber**
 
 [![Demo Web](https://img.shields.io/badge/Demo-certyquiz.vercel.app-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://certyquiz.vercel.app)
 [![PWA](https://img.shields.io/badge/PWA-installable_offline-06b6d4?style=for-the-badge&logo=pwa&logoColor=white)](https://certyquiz.vercel.app)
@@ -16,11 +16,9 @@
 
 ## Aperçu
 
-Une PWA gamifiée pour préparer **7 certifications cybersécurité** : Security+, EBIOS RM, SC-200, ISO 42001, CISSP, CISA, et Gouvernance EFREI. Chaque question est rédigée avec une **rationale par option** (pas seulement la bonne réponse), un **shuffle anti-biais**, et un mode **examen blanc chronométré** calé sur les conditions réelles.
+Une PWA gamifiée pour préparer les best**certifications cybersécurité** : Security+, EBIOS RM, SC-200, ISO 42001, CISSP, CISA... Chaque question est rédigée avec une **rationale par option**, un **shuffle anti-biais**, et un mode **examen blanc chronométré** calé sur les conditions réelles.
 
 > **Disponible en 1 clic** sur https://certyquiz.vercel.app — installable sur l'écran d'accueil iOS/Android (PWA, fonctionne **offline** après la 1ère visite).
-
-> ⚠️ **Toutes les questions livrées sont rédigées originalement** par CertyQuiz à partir des objectifs publics et cours associés. Aucune question d'examen réel n'est reproduite. Si une question provient d'un support officiel public (practice assessment Microsoft Learn, MOOC EBIOS), un attribut `official: true` affiche une **bannière rouge** explicite.
 
 <div align="center">
 
@@ -40,7 +38,7 @@ Une PWA gamifiée pour préparer **7 certifications cybersécurité** : Security
 
 ## Contenu pédagogique
 
-### 7 certifications couvertes
+### certifications couvertes
 
 | Certif | Domaines | Format examen | Questions disponibles |
 | --- | --- | --- | --- |
@@ -50,9 +48,7 @@ Une PWA gamifiée pour préparer **7 certifications cybersécurité** : Security
 | **ISO 42001** (IA Management) | 10 clauses + Annex A | Examen ouvert | **20** |
 | **CISSP** | 8 domaines (ISC²) | 100-150 Q · 3h · 700/1000 | **99** |
 | **CISA** | 5 domaines (ISACA) | 150 Q · 4h · 450/800 | **80** |
-| **Gouvernance EFREI** | Cours M1 IAM | Variable | **110** |
 
-> **Total : ~650 questions originales**, augmenté à chaque release.
 
 ### Banque de connaissances
 
@@ -83,15 +79,6 @@ Refait uniquement les questions ratées, **ordonnées par fréquence d'erreur**.
 ### 🧪 Quiz de positionnement
 10 questions à l'onboarding pour calibrer ton niveau et te suggérer la certif la plus adaptée.
 
-### 🛡️ Shuffle anti-biais position A
-L'ordre des options est **mélangé à l'affichage** via Fisher-Yates seedé sur `question.id` :
-- **Stable** pendant qu'une question est affichée (pas de saut au clic)
-- **Change** entre deux montages (révision)
-- La lettre A/B/C/D suit la position **visuelle**, pas l'id interne
-- Tracking par id (`'a'`, `'b'`...) → validation et rationales restent corrects
-
-→ La bonne réponse n'est plus mémorisable par sa position. Sur **toutes** les certifs.
-
 ### 🗺️ Roadmap par certif
 Étapes débloquées progressivement : tu valides un domaine quand tu atteins **≥ 60% de précision** sur 3+ tentatives. L'examen blanc ne se débloque qu'une fois tous les domaines validés.
 
@@ -121,9 +108,7 @@ Pour ne **jamais perdre ta progression** :
 - **iOS Safari** : bouton « Partager » → « Sur l'écran d'accueil »
 - **Android Chrome** : menu ⋮ → « Ajouter à l'écran d'accueil » (ou bandeau d'install qui apparaît automatiquement)
 
-Une fois installée, l'app tourne en mode standalone (sans la barre d'adresse) et ses données sont protégées des nettoyages automatiques.
-
-> **Pas de compte, pas de cloud auto, pas de multi-device par défaut** — chaque appareil est un silo isolé. Tu fais ton training sur le tel ? Le streak ne sera pas sur l'ordi. C'est un choix volontaire (privacy first), une sync optionnelle pourrait être ajoutée plus tard.
+Une fois installée, l'app tourne en mode standalone et ses données sont protégées des nettoyages automatiques.
 
 ---
 
@@ -212,7 +197,7 @@ Chaque question suit le type `Question` de [`src/types/index.ts`](src/types/inde
 }
 ```
 
-Ajoute-la dans le fichier de la certif concernée (par ex. `src/data/efrei-gouvernance/questions.ts`). Elle est immédiatement disponible dans **tous** les modes (entraînement, examen, révision ciblée, stats).
+Ajoute-la dans le fichier de la certif concernée (par ex. `src/data/CISA/questions.ts`). Elle est immédiatement disponible dans **tous** les modes (entraînement, examen, révision ciblée, stats).
 
 ### Une certification
 
