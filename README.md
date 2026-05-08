@@ -114,13 +114,6 @@ Mode **clair / sombre / système** · contraste AA · ARIA · navigation clavier
 
 L'app est **100% locale** (pas de serveur, pas de compte). Ta progression (réponses, précision, streak, badges) est stockée sur ton appareil via `localStorage`.
 
-| Tu utilises l'app via... | Sauvegarde | Risque |
-| --- | --- | --- |
-| **PWA installée sur l'écran d'accueil** ✅ | `localStorage` (contexte standalone) | Aucun — persiste comme une vraie app |
-| **Onglet navigateur classique sur iOS Safari** ⚠️ | `localStorage` | **iOS supprime après 7 jours d'inactivité** (politique ITP d'Apple) |
-| **Onglet navigateur Android Chrome / desktop** | `localStorage` | Effacé si tu vides le cache du navigateur |
-| **Mode privé / navigation privée** | Volatile | Tout disparaît à la fermeture |
-
 ### 👉 Installe l'app sur l'écran d'accueil
 
 Pour ne **jamais perdre ta progression** :
@@ -131,21 +124,6 @@ Pour ne **jamais perdre ta progression** :
 Une fois installée, l'app tourne en mode standalone (sans la barre d'adresse) et ses données sont protégées des nettoyages automatiques.
 
 > **Pas de compte, pas de cloud auto, pas de multi-device par défaut** — chaque appareil est un silo isolé. Tu fais ton training sur le tel ? Le streak ne sera pas sur l'ordi. C'est un choix volontaire (privacy first), une sync optionnelle pourrait être ajoutée plus tard.
-
----
-
-## Stack technique
-
-| Catégorie | Tech |
-| --- | --- |
-| Framework | **React 18** + **Vite** + **TypeScript** |
-| Styles | **Tailwind CSS** (design system maison, mode sombre via `class`) |
-| State | **Zustand** + `localStorage` (persistance, fonctionne offline) |
-| Routing | React Router DOM v6 |
-| Animations | Framer Motion |
-| Icons | Lucide React |
-| PWA | **vite-plugin-pwa** (Workbox) — manifest + service worker |
-| Hébergement | **Vercel** (CD via GitHub, branch `main`) |
 
 ---
 
@@ -246,35 +224,3 @@ Ajoute-la dans le fichier de la certif concernée (par ex. `src/data/efrei-gouve
 6. (Optionnel) Déposer un logo PNG dans `public/certs/<id>.png` et le référencer via `logoPath`
 
 ---
-
-## Roadmap / idées
-
-- [ ] Mode multijoueur — battle 1v1 sur la même certif
-- [ ] Sync GitHub optionnelle (comme [Iron Week Pro](https://github.com/Fumikage-DarkShadow/iron-week-pro)) pour multi-device
-- [ ] Génération automatique de fiches de révision à partir des questions ratées (LLM côté client)
-- [ ] Mode "speedrun" — examen blanc avec leaderboard local
-- [ ] Plus de certifs : AWS Security Specialty, CCSP, OSCP (Q&A théorique)
-- [ ] Export PDF de fiches de révision personnalisées
-- [ ] Notifications quotidiennes (PWA push) pour entretenir le streak
-
----
-
-## 🐛 Tu rencontres un bug ou tu as une idée ?
-
-> ### **Remonte-moi les problèmes ou tes recommandations**
->
-> **🐛 Bug** ou **💡 Suggestion** : ouvre une issue sur GitHub → [CertyQuiz Issues](https://github.com/Fumikage-DarkShadow/CertyQuizz/issues/new)
->
-> **❓ Question fausse / mal formulée ?** Pareil, ouvre une issue avec l'id de la question (`f-sp-04`, `efr-g6-99`...) — je corrige et je redéploie sous quelques heures.
->
-> Tu peux aussi me ping directement : [@Fumikage-DarkShadow](https://github.com/Fumikage-DarkShadow) · ilyessadadou@gmail.com
->
-> Toute remontée est précieuse pour améliorer la qualité des questions et l'UX. Capture d'écran, étapes pour reproduire, ou simplement *« ce serait cool si... »*.
-
----
-
-<div align="center">
-
-**Made with ❤️ in Paris** · [certyquiz.vercel.app](https://certyquiz.vercel.app)
-
-</div>
